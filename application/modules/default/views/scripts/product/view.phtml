@@ -1,0 +1,19 @@
+<?php 
+$this->dojo()
+	->enable()
+	->requireModule(array(
+		'dojox.widget.Dialog',
+		'dijit.form.Form',
+		'dojox.form.BusyButton',
+		'dijit.form.NumberSpinner',
+	));
+
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	var nodes = dojo.query('.orderButton');
+	nodes.connect('onclick','makeOrder');
+}
+<?php $this->dojo()->onLoadCaptureEnd();?>
+<?=$this->partial('./product/item-partial.phtml',array('product'=>$this->product))?>
+DETAIL HERE!!

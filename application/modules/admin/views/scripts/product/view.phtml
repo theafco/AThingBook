@@ -1,0 +1,59 @@
+<?php
+$product = $this->product;
+$thumbHelper = $this->thumbnail();
+$thumbUrl = $thumbHelper->url(array('group'	=>	'products','iid'	=>	$product->id,'size'	=>	'small',));
+
+$data = array(
+				array(
+					'label'	=>	'รหัสสินค้า',
+					'value'	=>	$product->id,
+					'readonly'	=>	true,
+				),
+				array(
+						'label'	=>	'หมวดสินค้า',
+						'value'	=>	$product->category->name,
+						'editor'=>	'category',
+				),
+				array(
+					'label'	=>	'ชื่อสินค้า',
+					'value'	=>	$product->name,
+					'editor'=>	'name',
+				),
+				array(
+						'label'	=>	'รูปสินค้า',
+						'value'	=>	( ($thumbHelper->isExist($thumbUrl))?'<img src="'. $thumbUrl . '" style="margin-top:10px;">':'<span class="noData">ไม่มีรูป</span>' ),
+						'editor'=>	'thumbnail',
+				),
+				array(
+					'label'	=>	'รายละเอียด',
+					'value'	=>	'ไม่แสดง',
+					'nodata'=>	true,
+					'editor'=>	'description',
+				),
+				array(
+					'label'	=>	'ราคาขาย',
+					'value'	=>	$this->currency($product->price,Zend_Registry::get('Zend_Currency')),
+					'editor'=>	'price',
+				),
+);
+?>
+
+<div id="infoSettings">
+		<ul class="viewList">
+			<?php foreach ($data as $field):?>
+				<li class="viewListItem" ajaxurl="/admin/product/editor/name/<?=$field['editor']?>" itemId="<?=$this->product->id?>")">
+					<div <?=(!$field['readonly']) ? 'class="title"' : null?>>
+						<span class="label"><?=$field['label']?></span>
+							<span class="value <?=(($field['nodata'])?'noData':null)?>">
+								<?=$field['value']?>
+							</span>
+						<?php if (!$field['readonly']):?>
+						<img class="loader" src="/images/ajax-loader1.gif" alt="loader" width="16px" height="16px" class="hidden">
+						<span class="edit icon color1C92B7 editIcon"></span>
+						<?php endif;?>
+					</div>
+					<div class="editor"></div>
+				</li>
+			<?php endforeach;?>
+		</ul>
+</div>

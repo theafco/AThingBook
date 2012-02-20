@@ -1,0 +1,13 @@
+<form id="<?=$this->element->getName()?>" action="<?=$this->element->getAction()?>" method="<?=$this->element->getMethod()?>" dojoType="dijit.form.Form" enctype="multipart/form-data">
+<ul class="formTable">
+<?php
+foreach ($this->element as $element) {
+    $excludes = array('send','cancel');
+    if (!in_array($element->getName(), $excludes)) {
+        echo $element;
+    }
+}
+?>
+</ul>
+<center><?=$this->element->send?> <?=$this->element->cancel?></center>
+</form>	

@@ -1,0 +1,67 @@
+<?php 
+$this->dojo()
+	->requireModule(array(
+		'dijit.form.Form',
+		'dijit.form.TextBox',
+		'dijit.form.ValidationTextBox',
+		'dijit.form.Select',
+		'dijit.form.FilteringSelect',
+		'dijit.form.Textarea',
+		'dijit.form.CurrencyTextBox',
+		'dijit.form.Button',
+		'dojox.form.BusyButton',
+		'dojo.NodeList-traverse',
+		'dojo.io.iframe',
+	));
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	var nodes = dojo.query('a.listItemOperation');
+	nodes.connect('onclick','deleteListItem');
+}
+<?php $this->dojo()->onLoadCaptureEnd();?>
+<div id="leftContent">
+	<div id="leftMenuTitle">
+		<span class="label">จัดการสินค้า</span>
+		<span class="icon colorE9E9E9 bookIcon"></span>
+	</div>
+	<div id="leftMenu">
+		<?php echo $this->navigation()->menu(); ?>
+	</div>
+</div>
+
+<div id="centerContentContainer">
+	<div id="centerContent">
+	<?php
+	//use dojo dialog
+	echo $this->customDijit('Dialog',null,array(
+			'dojoType'	=>	'dijit.Dialog',)
+	);
+
+	?>
+	<div id="searchResultLabel">ผลการค้นหาพบทั้งหมด <?=Zend_Locale_Format::toNumber($this->products->count())?> รายการ</div>
+	<table class="resultTableList">
+		<tr>
+			<th style="width:100px">หมายเลขสินค้า</th>
+			<th>ชื่อสินค้า</th>
+			<th>ประเภทสินค้า</th>
+		</tr>
+		<?php foreach ($this->products as $product):?>
+			<tr class="resultTableListItem" onclick="openDialog('รายละเอียดสินค้า','/admin/product/view/item/<?=$product->id?>')">
+				<td><?=$product->id?></td>
+				<td><?=$product->name?></td>
+				<td><?=$product->category->name?><a href="#" class="listItemOperation icon colorE9E9E9 closeIcon" ajaxurl="<?=$this->url(array('module'=>'admin','controller'=>'product','action'=>'delete'))?>" itemId="<?=$product->id?>"></a></td>
+			</tr>
+		<?php endforeach;?>
+	</table>
+	</div>
+	<div id="rightContentContainer">
+		<div id="rightContent">
+			<div id="searchForm">
+				<div id="searchFormContent">
+					<?=$this->formSearch?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

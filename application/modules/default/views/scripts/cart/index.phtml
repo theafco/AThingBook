@@ -1,0 +1,31 @@
+<?php if ($this->items) :
+$this->dojo()
+	->enable()
+	->requireModule(array(
+	'dijit.form.Form',
+	'dojox.widget.Dialog',
+	'dijit.form.NumberSpinner',
+	'dojox.form.BusyButton',
+));
+
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	var nodes = dojo.query('.editIcon');
+	nodes.connect('onclick','editQuantity');
+}
+<?php
+$this->dojo()->onLoadCaptureEnd();
+
+$currency = Zend_Registry::get('Zend_Currency');
+$form = new Application_Form_FormBase();
+$sendFormElement =	$form->getSubmitButton('ดำเนินการสั่งซื้อ');
+$sendFormElement->setName('next');
+$sendFormElement->setAttrib('onclick', 'self.location="' . $this->url(array('action'=>'order1')) . '"');
+echo '<h1>รายการสั่งซื้อสินค้า</h1>';
+echo $this->partial('./cart/cart-table.phtml',array('tableId'=>'viewCart','items'=>$this->items));
+echo $sendFormElement;
+?>
+<?php else :?>
+    <h3>ไม่พบสินค้าในตะกร้า</h3>
+<?php endif;?>

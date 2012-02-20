@@ -1,0 +1,32 @@
+<?php 
+$currency = Zend_Registry::get('Zend_Currency');
+?>
+	<table id="<?=$this->tableId?>" class="orderTable">
+		<tr>
+			<th></th>
+			<th>รหัสสินค้า</th>
+			<th>รายการ</th>
+			<th class="price">ราคาต่อหน่วย (<?=$currency->getName()?>)</th>
+			<th>จำนวน</th>
+			<th class="unitTotalPrice">ราคารวม (<?=$currency->getName()?>)</th>
+		</tr>
+		<?php foreach ($this->items as $code=>$item):
+			$product = $item['product'];
+			$quantity = $item['params']['quantity'];
+			$itemPrice = $product->price * (int)$quantity;
+			$totalPrice += $itemPrice;
+		?>
+		<tr class="item">
+			<td class="op"><span class="icon closeIcon color1C92B7" title="ลบรายการนี้"></span></td>
+			<td class="code"><?=$code?></td>
+			<td class="name"><?=$product->name?></td>
+			<td><?=$currency->toCurrency($product->price,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+			<td class="quantity"><span class="value"><?=Zend_Locale_Format::toNumber($quantity)?></span><span class="icon editIcon color1C92B7" title="แก้ไขจำนวนสินค้า" ajaxUrl="<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$product->id))?>"></span></td>
+			<td><?=$currency->toCurrency($itemPrice,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+		</tr>
+		<?php endforeach;?>
+		<tr class="summary">
+			<td colspan="5">ยอดรวมทั้งหมด (<?=$currency->getName()?>)</td>
+			<td><?=$currency->toCurrency($totalPrice,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+		</tr>
+	</table>

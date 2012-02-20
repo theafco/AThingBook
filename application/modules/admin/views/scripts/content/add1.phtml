@@ -1,0 +1,41 @@
+<?php
+$this->dojo()
+	->requireModule(array(
+		'dijit.form.Form',
+		'dijit.Editor',
+		'dijit.form.RadioButton',
+		'dijit.form.Button',
+		'dojox.form.BusyButton',
+	));
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	var f = dijit.byId('content1_form');
+	dojo.connect(f,'onSubmit',function(){
+		if (!f.isValid()) {
+			alert('ป้อนข้อมูลไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง');
+		}
+	});
+}
+<?$this->dojo()->onLoadCaptureEnd();?>
+<div id="leftContent">
+	<div id="leftMenuTitle">
+		<span class="label">จัดการเนื้อหา</span>
+		<span class="icon colorE9E9E9 editIcon"></span>
+	</div>
+	<div id="leftMenu">
+		<?php echo $this->navigation()->menu(); ?>
+	</div>
+</div>
+
+<div id="centerContentContainer">
+	<div class="content">
+		<h1>กรอกข้อมูลรายละเอียดเนื้อหา</h1>
+		<div class="roundBox preview">
+			<img src="/uploads/contents/<?=$this->content->category->id . '/' . $this->content->id . '/thumbnail/medium.jpg' ?>">
+			<div class="head">หมวดหมู่</div><div><?= $this->content->category->name?></div><br />
+			<div class="head">หัวเรื่อง</div><div><?= $this->content->name?></div>
+		</div>
+		<?=$this->form?>
+	</div>
+</div>

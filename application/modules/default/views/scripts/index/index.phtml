@@ -1,0 +1,106 @@
+<?php 
+$this->dojo()
+	->enable()
+	->requireModule(array(
+		'dojox.widget.Dialog',
+		'dijit.form.Form',
+		'dojox.form.BusyButton',
+		'dijit.form.NumberSpinner',
+		//'dojo.fx.easing',
+	));
+
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	var nodes = dojo.query('.orderButton');
+	nodes.connect('onclick','makeOrder');
+}
+<?php $this->dojo()->onLoadCaptureEnd();?>
+<!--normal book slideshow begin-->
+<div id="normalBookContainer">	
+	<div id="normalBookThumbContainer">			
+		<div id="normalBookThumb">
+			<?php 
+			$thumbHelper = $this->thumbnail();
+			foreach ($this->normalBooks as $book): 
+			
+				$thumbUrl = $thumbHelper->url(array('group'=>'products','iid'=>$book->id,'size'=>'small'));
+				if ($thumbHelper->isExist($thumbUrl)) {
+				    $dim = $thumbHelper->getDimensions($thumbUrl);
+				    $isHorizontal = $dim['isHorizontal'];
+				} else {
+				    $isHorizontal = true;
+				}
+				
+			?>
+			<div class="defaultProductThumbnail <?=( ($isHorizontal) ? 'sliderHorizontalLayout' : null )?>">
+                <a href="<?=$this->url(array('action'=>'view','controller'=>'product','item'=>$book->id))?>"><img class="lightGrayBorder" src="<?=$thumbUrl?>" <?=( ($isHorizontal) ? 'width="148px" height="104px"' : 'width="104px" height="148px"' )?> /></a>
+                <h4><?=$book->name?></h4>
+                <span class="desc"><?=$book->description?></span>
+                <div class="price">
+                		<div <?=(($book->sale_price) ? 'class="notSale"' : null)?>>ราคาปกติ<span><?=$book->normal_price?></span>บาท</div>
+                		<?php if($book->sale_price) :?>
+                		<div class="sale">ราคาพิเศษ<span><?=$book->sale_price?></span>บาท</div>
+                		<?php endif;?>
+                		<span ajaxUrl="<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$book->id))?>" params="{item:<?=$book->id?>}" class="orderButton sliderOrderButton"></span>
+                </div>
+			</div>	
+			<?php endforeach;?>
+		</div>			
+	</div>
+</div>
+<div class="title_bar"><span class="title_text">หนังสือธรรมทาน</span><a href="<?=$this->url(array('controller'=>'product','action'=>'index','cat'=>2))?>" class="see_all">ดูทั้งหมด</a></div>
+<div id="dedicatedBookContainer">	
+	<div id="dedicatedBookThumbContainer">			
+		<div id="dedicatedBookThumb">
+			<?php 
+			foreach ($this->dedicatedBooks as $book):
+				$thumbUrl = $thumbHelper->url(array('group'=>'products','cid'=>$book->category_id,'iid'=>$book->id,'size'=>'small'));
+				if ($thumbHelper->isExist($thumbUrl)) {
+				    $dim = $thumbHelper->getDimensions($thumbUrl);
+				    $isHorizontal = $dim['isHorizontal'];
+				} else {
+				    $isHorizontal = true;
+				}
+			?>
+			<div class="defaultProductThumbnail <?=(($isHorizontal)?'sliderHorizontalLayout':null)?>">
+                <a href="<?=$this->url(array('action'=>'view','controller'=>'product','item'=>$book->id))?>"><img class="lightGrayBorder" src="<?=$thumbUrl?>" <?=( ($isHorizontal) ? 'width="148px" height="104px"' : 'width="104px" height="148px"' )?> /></a>
+                <h4><?=$book->name?></h4>
+                <span class="desc"><?=$book->description?></span>
+                <div class="price">
+                		<div <?=(($book->sale_price) ? 'class="notSale"' : null)?>>ราคาปกติ<span><?=$book->normal_price?></span>บาท</div>
+                		<?php if($book->sale_price) :?>
+                		<div class="sale">ราคาพิเศษ<span><?=$book->sale_price?></span>บาท</div>
+                		<?php endif;?>
+                		<span ajaxUrl="<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$book->id))?>" params="{item:<?=$book->id?>}" class="orderButton sliderOrderButton"></span>
+                </div>
+			</div>	
+			<?php endforeach;?>
+		</div>			
+	</div>
+</div>
+<div class="title_bar"><span class="title_text">การ์ตูนธรรมมะ</span><a href="<?=$this->url(array('controller'=>'content','action'=>'index','cat'=>2))?>" class="see_all">ดูทั้งหมด</a></div>
+การ์ตูนธรรมมะ
+<br />
+<br />
+<div class="title_bar"><span class="title_text">บทความน่าอ่าน</span><a href="<?=$this->url(array('controller'=>'content','action'=>'index','cat'=>1))?>" class="see_all">ดูทั้งหมด</a></div>
+<div id="contentSection">
+	<div class="lastest">
+	<?php $lastest=true;?>
+	<?php foreach ($this->contents as $content): ?>
+		<?php $viewLink=$this->url(array('controller'=>'content','action'=>'view','item'=>$content->id))?>
+		<?php if($lastest==true) :?>
+		<a href="<?=$viewLink?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','cid'=>$content->category_id,'iid'=>$content->id,'size'=>'medium'))?>" width="249px" height="178px">
+		<span class="headline"><?=$content->name?></a></span> <span><?=strip_tags($content->body)?></span>
+		<span class="blackBtn"><span class="counter viewCounter">18</span></span><span class="blackBtn"><span class="counter commentCounter">26</span></span>
+	</div>
+	<div class="nextList">
+		<ul>
+			<?php $lastest=false;?>
+		<?php else:?>
+		    <li><a href="<?=$viewLink?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','cid'=>$content->category_id,'iid'=>$content->id,'size'=>'small'))?>" width="84px" height="60px"><span class="headline"><?=$content->name?></span></a> <?=strip_tags($content->body)?></li>
+		<?php endif;?>
+	<?php endforeach;?>
+		</ul>
+	</div>
+</div>

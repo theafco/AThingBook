@@ -1,0 +1,67 @@
+<?php 
+$this->dojo()
+	->requireModule(array(
+		'dijit.form.Form',
+		'dijit.form.TextBox',
+		'dijit.form.ValidationTextBox',
+		'dijit.form.Select',
+		'dijit.form.FilteringSelect',
+		'dijit.form.DateTextBox',
+		'dijit.form.Textarea',
+		'dijit.form.RadioButton',
+		'dijit.form.Button',
+		'dojox.form.BusyButton',
+		'dojox.validate',
+		'dojox.validate.web',
+		'dojo.NodeList-traverse',
+	));
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	var nodes = dojo.query('a.listItemOperation');
+	nodes.connect('onclick','deleteListItem');
+}
+<?php $this->dojo()->onLoadCaptureEnd();?>
+<div id="leftContent">
+	<div id="leftMenuTitle">
+		<span class="label">จัดการผู้ใช้</span>
+		<span class="icon colorE9E9E9 usersIcon"></span>
+	</div>
+	<div id="leftMenu">
+		<?php echo $this->navigation()->menu(); ?>
+	</div>
+</div>
+
+<div id="centerContentContainer">
+	<div id="centerContent">
+	<?php
+	//use dojo dialog
+	echo $this->customDijit('Dialog',null,array(
+			'dojoType'	=>	'dijit.Dialog',)
+	);
+
+	?>
+	<div id="searchResultLabel">ผลการค้นหาพบทั้งหมด <?=Zend_Locale_Format::toNumber($this->users->count())?> รายการ</div>
+	<table class="resultTableList">
+		<tr>
+			<th style="width:100px">หมายเลขผู้ใช้</th>
+			<th>ชื่อ-สกุล</th>
+		</tr>
+		<?php foreach ($this->users as $user):?>
+			<tr class="resultTableListItem" onclick="openDialog('ประวัติสมาชิก','/admin/user/view/item/<?=$user->id?>')">
+				<td><?=$user->id?></td>
+				<td><?=$user->first_name?> <?=$user->last_name?><a href="#" class="listItemOperation icon colorE9E9E9 closeIcon" ajaxurl="<?=$this->url(array('module'=>'admin','controller'=>'user','action'=>'delete'))?>" itemId="<?=$user->id?>"></a></td>
+			</tr>
+		<?php endforeach;?>
+	</table>
+	</div>
+	<div id="rightContentContainer">
+		<div id="rightContent">
+			<div id="searchForm">
+				<div id="searchFormContent">
+					<?=$this->formSearch?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

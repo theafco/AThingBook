@@ -1,0 +1,26 @@
+<?php
+$product = $this->product;
+$thumbHelper = $this->thumbnail();
+$thumbUrl = $thumbHelper->url(array('group'=>'products','iid'=>$product->id,'size'=>'small'));
+if ($thumbHelper->isExist($thumbUrl)) {
+	$dim = $thumbHelper->getDimensions($thumbUrl);
+	$isHorizontal = $dim['isHorizontal'];
+} else {
+	$isHorizontal = true;
+}
+?>
+<div class="itemRoundLightGrayBox">
+	<a href="<?=$this->url(array('action'=>'view','controller'=>'product','item'=>$product->id),null,true)?>"><img class="lightGrayBorder" src="<?=$thumbUrl?>" <?=( ($isHorizontal) ? 'width="148px" height="104px"' : 'width="104px" height="148px"' )?> /></a>
+	<div class="productDesc">
+                
+                <h2><?=$product->name?></h2>
+                <span class="desc"><?=$product->description?></span>
+                <div class="price">
+                		<div <?=(($product->sale_price) ? 'class="notSale"' : null)?>>ราคาปกติ<span><?=$product->price?></span>บาท</div>
+                		<?php if($product->sale_price) :?>
+                		<div class="sale">ราคาพิเศษ<span><?=$product->sale_price?></span>บาท</div>
+                		<?php endif;?>
+                		<span ajaxUrl="<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$product->id),null,true)?>" class="orderButton sliderOrderButton"></span>
+                </div>
+	</div>
+</div>	

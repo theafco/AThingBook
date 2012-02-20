@@ -1,0 +1,11 @@
+<?php 
+$this->dojo()
+	->enable()
+	->requireModule(array(
+		'dijit.form.FilteringSelect',
+		'dojox.form.BusyButton',
+	));
+?>
+<?=$this->partial('./cart/cart-table.phtml',array('items'=>$this->items))?>
+<h2>ข้อมูลการจัดส่งสินค้า</h2>
+<? echo $this->shippingForm?>

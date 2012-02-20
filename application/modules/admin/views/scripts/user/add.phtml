@@ -1,0 +1,48 @@
+<?php 
+
+$this->dojo()
+	->requireModule(array(
+		'dijit.form.Form',
+		'dijit.form.TextBox',
+		'dijit.form.ValidationTextBox',
+		'dijit.form.Select',
+		'dijit.form.FilteringSelect',
+		'dijit.form.DateTextBox',
+		'dijit.form.Textarea',
+		'dijit.form.RadioButton',
+		'dijit.form.Button',
+		'dojox.form.BusyButton',
+		'dojox.validate',
+		'dojox.validate.web',
+	));
+/*
+	->requireModule('')
+	->requireModule('dojox.validate.web');
+*/
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	var f = dijit.byId('user_form');
+	dojo.connect(f,'onSubmit',function(){
+		if (!f.isValid()) {
+			alert('ป้อนข้อมูลไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง');
+		}
+	});
+}
+<?$this->dojo()->onLoadCaptureEnd();?>
+<div id="leftContent">
+	<div id="leftMenuTitle">
+		<span class="label">จัดการผู้ใช้</span>
+		<span class="icon colorE9E9E9 usersIcon"></span>
+	</div>
+	<div id="leftMenu">
+		<?php echo $this->navigation()->menu(); ?>
+	</div>
+</div>
+
+<div id="centerContentContainer">
+	<div class="content">
+		<h1>กรอกข้อมูลรายละเอียดผู้ใช้</h1>
+		<?=$this->form?>
+	</div>
+</div>
