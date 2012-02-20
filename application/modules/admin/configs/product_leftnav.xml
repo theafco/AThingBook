@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+<navigation>
+	<product>
+        <label>หนังสือ</label>
+        <uri></uri>
+        <pages>
+        	<child1>
+        		<label>แสดงหนังสือทั้งหมด</label>
+        		<uri>/admin/product</uri>
+        	</child1>
+        	<child2>
+        		<label>แสดงหนังสือทั่วไป</label>
+        		<uri>/admin/product/search/category/1</uri>
+        	</child2>
+        	<child3>
+        		<label>แสดงหนังสือธรรมทาน</label>
+        		<uri>/admin/product/search/category/2</uri>
+        	</child3>
+        	<child4>
+        		<label>เพิ่มหนังสือใหม่</label>
+        		<uri>/admin/product/add</uri>
+        	</child4>
+        </pages>
+	</product>
+  	<promotion>
+		<label>จัดโปรโมชั่น</label>
+		<uri></uri>
+		<pages>
+			<child1>
+        		<label>แสดงโปรโมชั่นทั้งหมด</label>
+        		<uri>/</uri>
+        	</child1>
+        	<child2>
+        		<label>เพิ่มโปรโมชั่นใหม่</label>
+        		<uri>/</uri>
+        	</child2>
+        </pages>
+	</promotion>
+</navigation>
+</configdata>

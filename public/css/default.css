@@ -1,0 +1,321 @@
+@CHARSET "ISO-8859-1";
+
+/**** Layout ****/
+div#globalContainer {}
+
+div#pageContainer {
+	margin: 0 auto;
+	width: 990px;
+}
+
+div#headerContainer {}
+
+div#contentContainer {}
+
+div#mainContentContainer {
+	width:739px;
+	display:inline-block;
+	/* border-right:1px solid #a8a8a8; */
+	min-height:800px;
+	padding:1em 0;
+}
+
+div#rightContentContainer {
+	float:right;
+	width:245px;
+}
+
+div#footerContainer {
+	background-image:url('/images/footer_separator.png');
+	background-repeat:no-repeat;
+	height:300px;
+	background-position:center top;
+}
+
+ul#footerNavigator {}
+
+ul#footerNavigator li {
+	list-style-type:none
+}
+
+ul#footerNavigator > li {
+	display:inline-block;
+	vertical-align:top;
+	margin:25px;
+}
+
+ul#footerNavigator li {
+	font-size:14px;
+}
+
+ul#footerNavigator li.topic {
+	font-size:18px;
+	color:#1fa4cd;
+	margin-bottom:15px;
+}
+
+/**** Menu ****/
+
+ul.mainMenu {
+	padding: 99px 0 0 183px;
+	width: 807px;
+}
+
+li.mainMenuItem {
+	padding: 0 0 0 1px;	
+}
+
+li.mainMenuItem a {
+	padding: 0 25px;
+	display: block;
+	background-image: url('/images/default_main_menu_bg.png');
+	background-repeat:repeat-x;
+	font-size: 16px;
+	color:white;
+	line-height: 31px;
+	text-shadow: black 0px 1px 4px;
+}
+
+li.mainMenuItem a:hover {
+	text-shadow: white 0px 1px 4px;;
+}
+
+/** elements **/
+.title_bar {
+	background-image:url('/images/title_bar_bg.png');
+	background-repeat:repeat-x;
+	height: 36px;
+	font-size: 16px;
+	color: #1fa4cd;
+	border: 1px solid #DBDBDB;
+	border-radius: 5px;
+}
+
+.noTopRadius {
+	border-top-left-radius:0;
+	border-top-right-radius:0;
+}
+
+.title_bar .see_all {
+	float:right;
+	line-height:32px;
+	margin-top:2px;
+	color: #1fa4cd;
+	margin-right:10px;
+}
+
+.title_bar .title_text:before {
+	content:url('/images/candle_topic_list.png');
+}
+
+.title_bar .title_text {
+	font-size: 24px;
+	color: #1fa4cd;
+	margin-left: 10px;
+}
+
+.rightColumnItem {
+	margin: 7px 10px;
+}
+
+.rightColumnTitleBar {
+	margin: 7px 0 !important;
+}
+
+.smallAppstore {
+	width:108px;
+	height:36px;
+	opacity:0.7;
+	margin: 10px 0;
+}
+
+.bigAppstore {
+	width:225px;
+	height:76px;
+	margin-top:15px !important;
+}
+
+.websiteLogo {
+	position:absolute;
+}
+
+.websiteLogo .textLogo {
+	position:absolute;
+	top:20px;
+	left:75px;
+}
+
+div.login {
+	float:right;
+	background:url('/images/login_separator_bg.png') top left no-repeat;
+	padding: 10px 20px;
+	height:78px;
+}
+
+div.login .label {
+	font-size:12px;
+	width:50px;
+	display:inline-block;
+}
+
+div.login dd {
+	line-height:25px;
+}
+
+div.login a{
+	font-size:12px;
+	margin:0 20px 0 0;
+}
+
+/*** Content Common ***/
+.viewStat:before {
+	content:url('/images/view_stat_icon.png');
+}
+
+.commentStat:before {
+	content:url('/images/comment_stat_icon.png');
+}
+
+.viewStat, .commentStat {
+	color:#ff6600;
+	margin:0 5px;
+	vertical-align:top;
+}
+
+.blackBtn {
+	background:url('/images/black_btn_bg.png') repeat-x;
+	border:1px solid #000000;
+	border-radius:5px;
+	padding:0 5px;
+	display:inline-block;
+	margin:0 2px;
+}
+
+.counter {
+	font-size:12px;
+	color:#ffffff;
+}
+
+.counter:before {
+	margin-right:2px;
+}
+
+.blackBtn .viewCounter:before {
+	content:url('/images/bubble_icon.png');
+}
+
+.blackBtn .commentCounter:before {
+	content:url('/images/pencil_icon.png');
+}
+
+/*** article ***/
+#article .listItem {
+	border:1px solid #DBDBDB;
+	border-radius:3px;
+	padding:5px;
+	margin-bottom:10px;
+	min-height:178px;
+}
+
+#article .description h2 a {
+	color:#ff6600;
+	line-height:30px;
+}
+
+#article img {
+	float:left;
+}
+
+#article .description {
+	padding:0 5px 0 265px;
+}
+
+#article .headline {
+	display:block;
+	margin:5px 0;
+}
+
+#article .stat {
+	margin-top:20px;
+	text-align:right;
+}
+
+#articleDetail {
+	border:1px solid #dbdbdb;
+	border-radius:5px;
+	padding:10px;
+}
+
+#articleDetail #contentBody {
+	margin:30px 0;
+}
+
+/** cart **/
+.orderButton {
+	background:url('/images/cart_order_btn.png') no-repeat center top;
+	display:inline-block !important;
+	cursor:pointer;
+	width:32px;
+	height:50px;
+}
+
+.sliderHorizontalLayout .sliderOrderButton {
+	position:absolute;
+	top:0px;
+	right:-40px;
+}
+
+.price {
+	margin:20px 0 5px;
+}
+
+.sliderHorizontalLayout .price {
+	position:absolute;
+	top:100px;
+	left:5px;
+}
+
+.price div, .price span {
+	font-size:14px;
+	color:#339933;
+}
+.sliderHorizontalLayout div {
+	margin-right:10px;
+}
+
+.price span {
+	margin:0 5px;
+}
+
+.price .notSale span {
+	text-decoration:line-through;
+}
+
+.price .sale, .price .sale span {
+	color:#FF3300;
+	font-weight:bold;
+}
+
+.defaultProductThumbnail .desc {font-size:12px; color:#657686;font-style:italic;}
+
+/* thumbnail slider begin */
+
+
+/* DIV container slider example */
+#normalBookContainer, #dedicatedBookContainer {  width:728px ; height:170px; margin:10px auto; display:block; position:relative; }
+
+/* create custom forward-backward buttons for this container */
+.addfwd { display:block; position:absolute; cursor:pointer; width:25px; height:170px; top:0px; right:0px; background:url(/images/right_nav_btn.png) no-repeat center;  }
+.addbkwd { display:block; position:absolute; cursor:pointer; width:25px; height:170px; top:0px; left:0px; background:url(/images/left_nav_btn.png) no-repeat center;  }
+
+/* the width is set to show the number of thumbnails that will be visible */
+#normalBookThumbContainer, #dedicatedBookThumbContainer { position:relative ; overflow:hidden ; width:678px ; height:170px ; margin:0px 25px; }
+/* the thumbnails container; set a width on it so everything will be fine */
+#normalBookThumb, #dedicatedBookThumb { display:block; position:relative; width:6000px; }
+
+.defaultProductThumbnail { display:block; position:relative; float:left; margin-right:5px; width:296px; height:170px;}
+
+#normalBookThumb a, #dedicatedBookThumb a { padding:0px; margin:0px; clear:both; display:block; }
+#normalBookThumb a img, #dedicatedBookThumb a img{ border:1px #333333 solid; margin-right:5px; float:left; }
+
+/* thumbnail slider end */

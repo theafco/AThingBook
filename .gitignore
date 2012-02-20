@@ -1,0 +1,17 @@
+#ZF files#
+.buildpath
+.project
+.settings/
+docs/
+tests/
+scripts/
+public/uploads
+application/models/doctrine
+public/js/libs
+
+#Backup files#
+*.[b|B]ak
+
+#OS junk files#
+.DS_Store*
+[T|t]humbs.db

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+<navigation>
+	<user>
+        <label>เนื้อหาทั่วไป</label>
+        <uri></uri>
+        <pages>
+        	<child1>
+        		<label>แสดงเนื้อหาทั้งหมด</label>
+        		<uri>/admin/content</uri>
+        	</child1>
+        	<child2>
+        		<label>แสดงเนื้อหาเรื่องราว</label>
+        		<uri>/</uri>
+        	</child2>
+        	<child3>
+        		<label>แสดงเนื้อหาหมื่นตา</label>
+        		<uri>/</uri>
+        	</child3>
+        	<child4>
+        		<label>แสดงเนื้อหาข่าวสาร</label>
+        		<uri>/admin/user/search/role/2</uri>
+        	</child4>
+        	<child5>
+        		<label>แสดงเนื้อหาอื่นๆ</label>
+        		<uri>/admin/user/search/role/3</uri>
+        	</child5>
+        	<child6>
+        		<label>เพิ่มเนื้อหาใหม่</label>
+        		<uri>/admin/content/add</uri>
+        	</child6>
+        </pages>
+	</user>
+</navigation>
+</configdata>
