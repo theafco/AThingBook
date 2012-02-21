@@ -16,16 +16,47 @@ function openDialog (title,href)
 */
 
 /**
- * Open dojo dialog with dojo-options
- * @param json options
+ * Open dojo form widget dialog
  */
-function openWidgetDialog(options){
+function openFormWidgetDialog(options,successCallbak,errorCallback){
 	var dlg = new dojox.widget.Dialog(options);
+	
 	//destroy dialog after close
 	this._userClosedDialogHandle = dojo.connect(dlg, "hide", this, 
 			function(e){
 				dlg.destroyRecursive();
 			});
+	
+	dojo.connect(dlg,'onDownloadEnd',function(e){
+		dojo.query('form',this.domNode).forEach(function(form){
+			dojo.connect(form,'onsubmit',function(e){
+				okBtn = dijit.byId('ok');
+				var args = {
+					form:form,
+					handleAs:'json',
+					load:function(response,ioArgs){
+						if(response.code == 0){
+							if (typeof(successCallbak)!='undefined'){
+								successCallbak();
+							}
+							dlg.destroyRecursive();
+						}
+						alert(response.message);
+					},
+					error:function(response,ioArgs){
+						if (typeof(errorCallback)!='undefined'){
+							errorCallback();
+						}
+						okBtn.cancel();
+						ajaxErrorHandler(response);
+					},
+				};
+				startAsync(args);
+				stopEvent(e);
+			});
+		});
+	});
+	
 	dlg.show();
 	return dlg;
 }
@@ -222,6 +253,7 @@ function stopEvent(e) {
 
 //Cart Functions
 var _quantity = null;
+
 function makeOrder(e){
 	var node = e.target
 	var href = dojo.attr(node,'ajaxUrl');
@@ -229,42 +261,14 @@ function makeOrder(e){
 	var options = {
 			title:'สั่งซื้อสินค้า',
 			href:href,
-			draggable:false,
+			//draggable:false,
 			//easing:dojo.fx.easing.bounceOut,
 			//sizeMethod:'combine',
 			//showTitle:false,
 			dimensions:[300,300],
 			//sizeDuration:600
 		};
-	dlg = openWidgetDialog(options);
-	dojo.connect(dlg,'onDownloadEnd',function(){
-		var form = dijit.byId('orderForm');
-		//TODO get SEND from FORM
-		//var send = dojo.filter(form.getDescendants(), function(d){ return d.attr('name') == 'send'});
-		var send = dijit.byId('send');
-		//console.debug(send);
-		dojo.connect(form, 'onSubmit',function(e){
-			var args = {
-				form:form.domNode,
-				handleAs:'json',
-				load:function(response,ioArgs){
-					if(response.code == 0){
-						_quantity = dijit.byId('quantity').value;
-						dlg.destroyRecursive();
-					} else {
-						send.cancel();
-					}
-					alert(response.message);
-				},
-				error:function(response,ioArgs){
-					send.cancel();
-					ajaxErrorHandler(response);
-				},
-			};
-			startAsync(args);
-			stopEvent(e);
-		});
-	});
+	dlg = openFormWidgetDialog(options);
 	return dlg;
 }
 

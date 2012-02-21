@@ -192,6 +192,7 @@ class Default_CartController extends Zend_Controller_Action
         	        $form->getElement('quantity')->setValue($this->_cartSession->items[$productCode]['quantity']);
         	    }
         	    $form->setAction($this->_helper->url('order',null,null,array('format'=>'json')));
+        	    $form->send->setAttrib('id', 'ok');
         	    break;
         	default:
         	    throw new Zend_Controller_Action_Exception('Invalid form','404');
