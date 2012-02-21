@@ -15,9 +15,9 @@ class Default_IndexController extends Zend_Controller_Action
         
         //slider script
         $this->view->getHelper('headScript')
-        	->appendFile('/js/slideitmoo/mootools-1.2-core.js')
-        	->appendFile('/js/slideitmoo/mootools-1.2-more.js')
-        	->appendFile('/js/slideitmoo/SlideItMoo.js');
+        	->appendFile('/js/libs/slideitmoo/mootools-1.2-core.js')
+        	->appendFile('/js/libs/slideitmoo/mootools-1.2-more.js')
+        	->appendFile('/js/libs/slideitmoo/SlideItMoo.js');
         
         //Set contents to view
         $this->view->normalBooks = $this->_helper->product->getLastestProductByCategory(1,4);
