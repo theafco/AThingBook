@@ -1,15 +1,14 @@
 <?php
 class Model_Base extends Doctrine_Record
 {
-    //TODO: solve singleton in all derived class
-    
+
     public function createQuery($alias){
     	$q = $this->getTable()->createQuery($alias);
     	$q->addWhere('is_deleted = 0');
     	return $q;
     }
     
-    public function destroy()
+    public function delete()
     {
         $this->is_deleted  = true;
         $this->save();

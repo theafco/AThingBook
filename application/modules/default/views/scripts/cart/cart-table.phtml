@@ -17,16 +17,16 @@ $currency = Zend_Registry::get('Zend_Currency');
 			$totalPrice += $itemPrice;
 		?>
 		<tr class="item">
-			<td class="op"><span class="icon closeIcon color1C92B7" title="ลบรายการนี้"></span></td>
+			<td class="op"><span class="icon closeIcon color1C92B7 async" title="ลบรายการนี้" params="{url:'<?=$this->url(array('controller'=>'cart','action'=>'delete','format'=>'json'))?>',item:'<?=$product->id?>'}"></span><img class="loader" src="/images/ajax-loader1.gif"></td>
 			<td class="code"><?=$code?></td>
 			<td class="name"><?=$product->name?></td>
-			<td><?=$currency->toCurrency($product->price,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
-			<td class="quantity"><span class="value"><?=Zend_Locale_Format::toNumber($quantity)?></span><span class="icon editIcon color1C92B7" title="แก้ไขจำนวนสินค้า" ajaxUrl="<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$product->id))?>"></span></td>
-			<td><?=$currency->toCurrency($itemPrice,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+			<td field="unitPrice"><?=$currency->toCurrency($product->price,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+			<td class="quantity"><span field="unitQuantity"><?=Zend_Locale_Format::toNumber($quantity)?></span><span class="icon editIcon color1C92B7" title="แก้ไขจำนวนสินค้า" params="{url:'<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'quantityEditor','item'=>$product->id))?>'}"></span></td>
+			<td field="unitTotalPrice"><?=$currency->toCurrency($itemPrice,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
 		</tr>
 		<?php endforeach;?>
 		<tr class="summary">
 			<td colspan="5">ยอดรวมทั้งหมด (<?=$currency->getName()?>)</td>
-			<td><?=$currency->toCurrency($totalPrice,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+			<td field="totalPrice"><?=$currency->toCurrency($totalPrice,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
 		</tr>
 	</table>

@@ -183,6 +183,7 @@
               <actionMethod actionName="order1"/>
               <actionMethod actionName="ajaxForm"/>
               <actionMethod actionName="order2"/>
+              <actionMethod actionName="delete"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -220,11 +221,14 @@
               <viewControllerScriptsDirectory forControllerName="Cart">
                 <viewScriptFile forActionName="order2"/>
               </viewControllerScriptsDirectory>
-			  <viewControllerScriptsDirectory forControllerName="Index">
+              <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="staticContent"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Cart">
+                <viewScriptFile forActionName="delete"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

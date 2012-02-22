@@ -11,8 +11,8 @@ $this->dojo()
 $this->dojo()->onLoadCaptureStart();
 ?>
 function(){
-	var nodes = dojo.query('.editIcon');
-	nodes.connect('onclick','editQuantity');
+	dojo.query('.closeIcon').connect('onclick','deleteOrderItem');
+	dojo.query('.editIcon').connect('onclick','editQuantity');
 }
 <?php
 $this->dojo()->onLoadCaptureEnd();

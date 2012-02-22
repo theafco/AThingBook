@@ -8,30 +8,34 @@ class Default_CartController extends Zend_Controller_Action
      * 
      * 
      * 
+     * 
      *
      */
     private $_productModel = null;
 
     /**
      * @var Model_ProductOrder
-     *
-     *
-     *
+     * 
+     * 
+     * 
+     * 
      *
      */
     private $_productOrderModel = null;
 
     /**
      * @var Model_ProductOrderItem
-     *
-     *
-     *
+     * 
+     * 
+     * 
+     * 
      *
      */
     private $_productOrderItemModel = null;
 
     /**
      * @var Zend_Session_Namespace
+     * 
      *
      */
     private $_cartSession = null;
@@ -40,7 +44,7 @@ class Default_CartController extends Zend_Controller_Action
     {
         //dojo dialog theme
         $this->view->getHelper('headLink')
-        	->appendStylesheet('/js/dojo/dojox/widget/Dialog/Dialog.css')
+        	->appendStylesheet('/js/libs/dojo/1.7.1/dojox/widget/Dialog/Dialog.css')
         	->appendStylesheet('/css/default_cart.css');
         
         $this->_productModel = new Model_Product();
@@ -53,6 +57,7 @@ class Default_CartController extends Zend_Controller_Action
         $this->_helper->ajaxContext
         	->addActionContext('ajax-form', 'html')
         	->addActionContext('order', 'json')
+        	->addActionContext('delete', 'json')
         	->initContext();
         
 //         $this->_cartSession->unsetAll();
@@ -151,6 +156,8 @@ class Default_CartController extends Zend_Controller_Action
 
     public function order2Action()
     {
+        $this->_helper->layout()->headline = 'การสั่งซื้อเสร็จสมบูรณ์';
+        
         $message = $this->_helper->flashMessenger->getMessages();
         if (count($message)) {
             $orderId = $message[0];
@@ -160,7 +167,7 @@ class Default_CartController extends Zend_Controller_Action
             $this->_helper->redirector('index','index');
         }
     }
-    
+
     public function summaryAction()
     {
         $orderId = $this->getRequest()->getParam('item');
@@ -180,6 +187,7 @@ class Default_CartController extends Zend_Controller_Action
         
         switch ($formName) {
         	case 'order':
+        	case 'quantityEditor':
         	    //get product code
         	    $productCode = $this->_helper->product->getProductCode($productId);
         	    if (!$productCode) {
@@ -193,6 +201,9 @@ class Default_CartController extends Zend_Controller_Action
         	    }
         	    $form->setAction($this->_helper->url('order',null,null,array('format'=>'json')));
         	    $form->send->setAttrib('id', 'ok');
+        	    if ($formName == 'quantityEditor') {
+        	        $form->send->setLabel('บันทึก');
+        	    }
         	    break;
         	default:
         	    throw new Zend_Controller_Action_Exception('Invalid form','404');
@@ -202,10 +213,27 @@ class Default_CartController extends Zend_Controller_Action
 
     }
 
+    public function deleteAction()
+    {
+		if ($this->getRequest()->isPost()) {
+            //collect inputs
+            $input = $this->getRequest()->getPost();
+            $productCode = $this->_helper->product->getProductCode($input['item']);
+            
+            //save order record session
+	 		unset($this->_cartSession->items[$productCode]);
 
-
+	        //set response
+	    	$this->view->code = 0;
+	     	
+        } else {
+            throw new Zend_Controller_Action_Exception('Require POST',403);
+        }
+    }
 
 }
+
+
 
 
 

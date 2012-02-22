@@ -42,7 +42,7 @@ function(){
                 		<?php if($book->sale_price) :?>
                 		<div class="sale">ราคาพิเศษ<span><?=$book->sale_price?></span>บาท</div>
                 		<?php endif;?>
-                		<span ajaxUrl="<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$book->id))?>" params="{item:<?=$book->id?>}" class="orderButton sliderOrderButton"></span>
+                		<span class="orderButton sliderOrderButton" params="{url:'<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$book->id))?>'}"></span>
                 </div>
 			</div>	
 			<?php endforeach;?>
@@ -72,7 +72,7 @@ function(){
                 		<?php if($book->sale_price) :?>
                 		<div class="sale">ราคาพิเศษ<span><?=$book->sale_price?></span>บาท</div>
                 		<?php endif;?>
-                		<span ajaxUrl="<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$book->id))?>" params="{item:<?=$book->id?>}" class="orderButton sliderOrderButton"></span>
+                		<span class="orderButton sliderOrderButton" params="{url:'<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$book->id))?>'}"></span>
                 </div>
 			</div>	
 			<?php endforeach;?>

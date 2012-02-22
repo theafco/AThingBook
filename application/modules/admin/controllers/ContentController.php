@@ -182,7 +182,7 @@ class Admin_ContentController extends Zend_Controller_Action
     	if (!empty($id)) {
     		$content = $this->content_model->findOneById($id);
     		if ($content) {
-    			$content->destroy();
+    			$content->delete();
     			$result = 0;
     		} else {
     			$result = 'ไม่พบรายการ';

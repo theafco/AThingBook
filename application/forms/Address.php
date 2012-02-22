@@ -42,6 +42,9 @@ class Application_Form_Address extends Application_Form_FormBase
         	'maxlength'	=>	'5',
         	'Required'	=>	true,
         	'Trim'	=>	true,
+        	'dijitParams'	=>	array(
+        		'regExp'	=>	'\d{5}',
+        	),
         ));
 
         $this->addElements(array(

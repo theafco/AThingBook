@@ -8,8 +8,8 @@ class Admin_UserController extends Zend_Controller_Action
     {
         $this->user_model = new Model_User();
         
-        //Enable Dojo View Helper
-		Zend_Dojo::enableView($this->view);
+        //dojo dialog theme
+        $this->view->getHelper('headLink')->appendStylesheet('/js/libs/dojo/1.7.1/dojox/widget/Dialog/Dialog.css');
 		
 		//Create left menu
 		$config = new Zend_Config_Xml(APPLICATION_PATH . '/modules/admin/configs/user_leftnav.xml','navigation');
@@ -19,6 +19,11 @@ class Admin_UserController extends Zend_Controller_Action
 		$uri = $this->_request->getPathInfo();
 		$activeNav = $this->view->navigation()->findByUri($uri);
 		$activeNav->active = true;
+		
+		$this->_helper->ajaxContext
+			->addActionContext('view', 'html')
+			->addActionContext('delete', 'json')
+			->initContext();
     }
 
     public function indexAction()
@@ -69,15 +74,17 @@ class Admin_UserController extends Zend_Controller_Action
 
     public function viewAction()
     {
-    	$itemid = $this->getRequest()->getParam('item');
-    	$user = $this->user_model->findOneById($itemid);
-    	$this->_helper->layout()->disableLayout();
+
+//     	if ($this->getRequest()->isPost()) {
+    	    $itemid = $this->getRequest()->getParam('item');
+    	    $user = $this->user_model->findOneById($itemid);
+
+    	    $this->view->user = $user;
+    	    
+//     	} else {
+//     	    throw new Zend_Controller_Action_Exception('Require Post',403);
+//     	}
     	
-    	if(false===$user){
-    		return false;
-    	}
-    	
-        $this->view->user = $user;
     }
 
     public function editAction()
@@ -301,21 +308,22 @@ class Admin_UserController extends Zend_Controller_Action
     	if ($this->getRequest()->isPost()) {
     		$input = $this->getRequest()->getPost();
     		$id = $input['item'];
+    		
+    		if (!empty($id)) {
+    			$user = $this->user_model->findOneById($id);
+    			if (!empty($user)) {
+    				$user->delete();
+    				$this->view->code = 0;
+    				$this->view->message = 'รายการผู้ใช้ถูกลบแล้ว';
+    				return;
+    			}
+    		}
+    		$this->view->code = -1;
+    		$this->view->message = 'ไม่พบผู้ใช้';
+    	} else {
+    	    throw new Zend_Controller_Action_Exception('Require Post',403);
     	}
-    	if (!empty($id)) {
-        	$user = $this->user_model->findOneById($id);
-        	if ($user) {
-        	    $user->is_deleted  = true;
-        		$user->save();
-        		$result = 0;
-        	} else {
-        		$result = 'ไม่พบรายการ';
-        	}
-        	$this->view->result = $result;
-    	}
-    	$this->_helper->layout()->disableLayout();
     }
-
 
 }
 

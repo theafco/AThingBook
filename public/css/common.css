@@ -17,6 +17,10 @@ a:hover {
 	color:inherit;
 }
 
+h1,h2,h3,h4 {
+	margin:1em 0;
+}
+
 h1 {
 	font-size: 22px;
 }
@@ -76,10 +80,6 @@ dl {
 
 .show {
 	display:block;
-}
-
-img.loader {
-	display:none;
 }
 
 .deletedListItem {
@@ -180,6 +180,18 @@ li.menuItem a {
 	margin:5px 0;
 	min-height:75px;
 	border-bottom:1px dashed #DBDBDB;
+}
+/*** ajax ***/
+.loader {
+	display:none;
+}
+
+.asyncStarting .async {
+	display:none;
+}
+
+.asyncStarting .loader {
+	display:inline-block;
 }
 
 /**** 16x16 icons ****/

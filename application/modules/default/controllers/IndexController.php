@@ -11,7 +11,7 @@ class Default_IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         //dojo dialog theme
-        $this->view->getHelper('headLink')->appendStylesheet('/js/dojo/dojox/widget/Dialog/Dialog.css');
+        $this->view->getHelper('headLink')->appendStylesheet('/js/libs/dojo/1.7.1/dojox/widget/Dialog/Dialog.css');
         
         //slider script
         $this->view->getHelper('headScript')

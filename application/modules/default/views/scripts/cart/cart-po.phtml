@@ -23,24 +23,24 @@ $order = $this->order;
 	</dd>
 </dl>
 <h2>รายการสั่งซื้อสินค้า</h2>
-	<table id="cartPO">
+	<table id="cartPO"class="orderTable">
 		<tr>
 			<th>รหัสสินค้า</th>
 			<th>รายการ</th>
-			<th>ราคาต่อหน่วย (<?=$currency->getName()?>)</th>
+			<th class="price">ราคาต่อหน่วย (<?=$currency->getName()?>)</th>
 			<th>จำนวน</th>
-			<th>ราคารวม (<?=$currency->getName()?>)</th>
+			<th class="unitTotalPrice">ราคารวม (<?=$currency->getName()?>)</th>
 		</tr>
 		<?php foreach ($order->items as $item) :?>
-		<tr>
-			<td><?=$item->code?></td>
-			<td><?=$item->name?></td>
+		<tr class="item">
+			<td class="code"><?=$item->code?></td>
+			<td class="name"><?=$item->name?></td>
 			<td><?=$currency->toCurrency($item->unit_price,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
-			<td><?=$currency->toCurrency($item->quantity,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+			<td><?=Zend_Locale_Format::toNumber($item->quantity)?></td>
 			<td><?=$currency->toCurrency($item->unit_total_price,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
 		</tr>
 		<?php endforeach;?>
-		<tr>
+		<tr class="summary">
 			<td colspan="4">ยอดรวมทั้งหมด (<?=$currency->getName()?>)</td>
 			<td><?=$currency->toCurrency($this->order->total_price,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
 		</tr>

@@ -11,13 +11,17 @@
 	border-bottom:2px solid #6ADAE1;
 }
 
-#viewCart td.op {
-	padding:0;
+.orderTable .closeIcon {
 	margin:0;
+	display:none;
+}
+
+.orderTable td.op {
+	padding:0;
 }
 
 #viewCart .closeIcon {
-	margin:0;
+	display:block !important;
 	opacity:.1;
 }
 
@@ -37,7 +41,12 @@
 	cursor:pointer;
 }
 
+.orderTable .editIcon {
+	display:none;
+}
+
 #viewCart .editIcon {
+	display:inline-block !important;
 	opacity:.1;
 }
 

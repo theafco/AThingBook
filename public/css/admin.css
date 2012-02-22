@@ -4,16 +4,17 @@
 	font-size:14px;
 }
 
-h1 {
+h1,h2,h3,h4 {
+	margin:1em 0;
 	color: #1FA4CD;
-	margin-top: 20px;
-	margin-bottom: 20px;
+}
+
+h1 {
+	font-size:20px;
 }
 
 h2 {
-	color: #1FA4CD;
-	margin-top: 20px;
-	margin-bottom: 10px;
+	font-size:18px;
 }
 
 ul.formTable {
@@ -130,32 +131,6 @@ span#searchSubmit_label {
 
 /**** Query TableItemList ****/
 
-table.resultTableList {
-	/*border-collapse:collapse;*/
-	width: 100%;
-	padding: 5px;
-}
-
-table.resultTableList tr th {
-	text-align:left;
-	color: white;
-	background-color: #3DBBE1;
-	padding: 3px;
-}
-
-table.resultTableList tr td {
-	padding: 3px;
-	border-bottom: 1px dashed #757575;
-}
-
-tr.resultTableListItem:hover, ul li.viewListItem:hover .title {
-	background-color: #F7F7F7;
-	cursor: pointer;
-}
-
-tr.resultTableListItem:hover td a.listItemOperation {
-	opacity:1;
-}
 
 a.listItemOperation {
 	opacity:0;
@@ -204,16 +179,8 @@ ul li.viewListItem div span.editIcon {
 	float:right;
 }
 
-.asyncStarting .icon {
-	display:none;
-}
-
 li.viewListItem:hover div span.editIcon {
 	opacity:1;
-}
-
-.asyncStarting img.loader {
-	display:inline;
 }
 
 .openPanel .title {
@@ -223,54 +190,6 @@ li.viewListItem:hover div span.editIcon {
 
 .openPanel .editor {
 	display:block;
-}
-
-/**** 16x16 icons ****/
-.icon {
-	height: 16px;
-	display:inline-block;
-	background-repeat: no-repeat;
-	vertical-align:middle;
-}
-
-.colorE9E9E9 {
-	background-image: url('/images/icon_e9e9e9.png');
-}
-
-.color757575 {
-	background-image: url('/images/icon_757575.png');
-}
-
-.color1C92B7 {
-	background-image: url('/images/icon_1c92b7.png');
-}
-
-.usersIcon {
-	background-position: 0 0;
-	width: 20px;
-}
-
-.bookIcon {
-	background-position: 0 -64px;
-	width: 20px;
-}
-
-.editIcon {
-	background-position: 0 -32px;
-	width: 20px;
-}
-
-.closeIcon {
-	background-position: 0 -114px;
-	width: 20px;
-}
-
-.roundBox {
-	border:1px solid #DBDBDB;
-	border-radius:5px;
-	padding:7px;
-	background-color:#F5F5F5;
-	min-height:76px;
 }
 
 .preview img {
@@ -290,4 +209,40 @@ li.viewListItem:hover div span.editIcon {
 .preview .head {
 	font-weight:bold;
 	width:80px;
+}
+
+/** improved Section **/
+/** result table **/
+#resultTable {
+	/*border-collapse:collapse;*/
+	width: 100%;
+	padding:.5em;
+}
+
+#resultTable th {
+	text-align:left;
+	color: #ffffff;
+	background-color: #3DBBE1;
+	padding:.5em;
+}
+
+#resultTable .item td {
+	padding:.5em;
+	border-bottom: 1px dashed #757575;
+}
+
+#resultTable .item:hover {
+	background-color: #F7F7F7;
+	cursor: pointer;
+}
+#resultTable .deleleOp {
+	float:right;
+	opacity:.1;
+}
+#resultTable .item:hover .deleleOp {
+	opacity:1;
+}
+
+#resultTable .item .loader {
+	float:right;
 }

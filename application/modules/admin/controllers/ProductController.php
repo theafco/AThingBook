@@ -294,7 +294,7 @@ class Admin_ProductController extends Zend_Controller_Action
     		if (!empty($id)) {
     			$product = $this->product_model->findOneById($id);
     			if ($product) {
-    				$product->destroy();
+    				$product->delete();
     				$result = array('code'=>0);
     			} else {
     				$result = array('code'=>-1,'message'=>'ไม่พบรายการ');

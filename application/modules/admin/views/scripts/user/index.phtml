@@ -1,5 +1,6 @@
 <?php 
 $this->dojo()
+	->enable()
 	->requireModule(array(
 		'dijit.form.Form',
 		'dijit.form.TextBox',
@@ -14,12 +15,13 @@ $this->dojo()
 		'dojox.validate',
 		'dojox.validate.web',
 		'dojo.NodeList-traverse',
+		'dojox.widget.Dialog',
 	));
 $this->dojo()->onLoadCaptureStart();
 ?>
-function(){
-	var nodes = dojo.query('a.listItemOperation');
-	nodes.connect('onclick','deleteListItem');
+function() {
+	dojo.query('.deleleOp').connect('onclick','deleteUserItem');
+	dojo.query('#resultTable .item').connect('onclick','viewUserItem');
 }
 <?php $this->dojo()->onLoadCaptureEnd();?>
 <div id="leftContent">
@@ -34,23 +36,16 @@ function(){
 
 <div id="centerContentContainer">
 	<div id="centerContent">
-	<?php
-	//use dojo dialog
-	echo $this->customDijit('Dialog',null,array(
-			'dojoType'	=>	'dijit.Dialog',)
-	);
-
-	?>
 	<div id="searchResultLabel">ผลการค้นหาพบทั้งหมด <?=Zend_Locale_Format::toNumber($this->users->count())?> รายการ</div>
-	<table class="resultTableList">
+	<table id="resultTable">
 		<tr>
 			<th style="width:100px">หมายเลขผู้ใช้</th>
 			<th>ชื่อ-สกุล</th>
 		</tr>
 		<?php foreach ($this->users as $user):?>
-			<tr class="resultTableListItem" onclick="openDialog('ประวัติสมาชิก','/admin/user/view/item/<?=$user->id?>')">
+			<tr class="item" params="{url:'<?=$this->url(array('action'=>'view','item'=>$user->id,'format'=>'html'))?>'}">
 				<td><?=$user->id?></td>
-				<td><?=$user->first_name?> <?=$user->last_name?><a href="#" class="listItemOperation icon colorE9E9E9 closeIcon" ajaxurl="<?=$this->url(array('module'=>'admin','controller'=>'user','action'=>'delete'))?>" itemId="<?=$user->id?>"></a></td>
+				<td><?=$user->first_name?> <?=$user->last_name?><span class="deleleOp async icon color1C92B7 closeIcon" params="{url:'<?=$this->url(array('module'=>'admin','controller'=>'user','action'=>'delete','format'=>'json'))?>',item:'<?=$user->id?>'}"></span><img class="loader" src="/images/ajax-loader1.gif"></td>
 			</tr>
 		<?php endforeach;?>
 	</table>

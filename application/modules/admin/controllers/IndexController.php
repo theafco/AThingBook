@@ -5,8 +5,7 @@ class Admin_IndexController extends Zend_Controller_Action
 
     public function init()
     {
-        //Enable Dojo View Helper
-		Zend_Dojo::enableView($this->view);
+
     }
 
     public function indexAction()

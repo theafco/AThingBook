@@ -7,7 +7,7 @@ class Default_ProductController extends Zend_Controller_Action
     public function init()
     {
         //dojo dialog theme
-        $this->view->getHelper('headLink')->appendStylesheet('/js/dojo/dojox/widget/Dialog/Dialog.css');
+        $this->view->getHelper('headLink')->appendStylesheet('/js/libs/dojo/1.7.1/dojox/widget/Dialog/Dialog.css');
         
         $this->_productModel = new Model_Product();
         $this->view->headLink()->appendStylesheet('/css/default_product.css');
