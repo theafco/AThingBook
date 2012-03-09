@@ -41,10 +41,6 @@ ul.errors li {
 	font-size: 10px;
 }
 
-.noData {
-	font-style:italic;
-	color:#D0D0D0;
-}
 /**** Left Menu ****/
 
 ul.navigation {
@@ -128,7 +124,10 @@ span#searchSubmit_label {
 	margin: 10px;
 	float: right;
 }
-
+/** form **/
+#searchForm dd, #editorForm dd {
+    padding:0;
+}
 /**** Query TableItemList ****/
 
 
@@ -142,47 +141,6 @@ a.listItemOperation:hover {
 }
 
 /**** List Item ****/
-
-div#infoSettings {
-	width:500px;
-}
-
-ul.viewList {
-	/*list-style-type: none;*/
-	width: inherit;
-}
-
-li.viewListItem {
-	line-height: 30px;
-	border-top: 1px solid #EAEAEA;
-}
-
-ul li.viewListItem div span {
-	display:inline-block;
-}
-
-ul li.viewListItem div span.label {
-	padding-left: 10px;
-	width: 150px;
-	font-weight:bold;
-	color:#1FA4CD;
-	vertical-align:top;
-}
-
-ul li.viewListItem div span.value {
-	width: 300px;
-}
-
-ul li.viewListItem div span.editIcon {
-	opacity:0;
-	margin-top: 5px;
-	float:right;
-}
-
-li.viewListItem:hover div span.editIcon {
-	opacity:1;
-}
-
 .openPanel .title {
 	height:0px;
 	visibility:hidden;
@@ -191,49 +149,34 @@ li.viewListItem:hover div span.editIcon {
 .openPanel .editor {
 	display:block;
 }
-
-.preview img {
-	border:1px solid #DBDBDB;
-	float:left;
-	margin-right:10px;
-}
-
-.preview {
-	margin:10px 0;
-}
-
-.preview div {
-	display:inline-block;
-}
-
-.preview .head {
-	font-weight:bold;
-	width:80px;
-}
-
 /** improved Section **/
+.grayOut {
+	font-style:italic;
+	color:#D0D0D0;
+}
+/** ajax **/
+
 /** result table **/
 #resultTable {
 	/*border-collapse:collapse;*/
 	width: 100%;
 	padding:.5em;
 }
-
 #resultTable th {
 	text-align:left;
 	color: #ffffff;
 	background-color: #3DBBE1;
 	padding:.5em;
 }
-
 #resultTable .item td {
 	padding:.5em;
 	border-bottom: 1px dashed #757575;
 }
-
+#resultTable .item {
+	cursor: pointer;
+}
 #resultTable .item:hover {
 	background-color: #F7F7F7;
-	cursor: pointer;
 }
 #resultTable .deleleOp {
 	float:right;
@@ -242,7 +185,17 @@ li.viewListItem:hover div span.editIcon {
 #resultTable .item:hover .deleleOp {
 	opacity:1;
 }
-
 #resultTable .item .loader {
 	float:right;
+}
+
+/** view list - dialog **/
+#editorForm #save-element {
+	display:inline-block;
+}
+#editorForm #cancel-label {
+	display:none;
+}
+#editorForm #cancel-element {
+	display:inline-block;
 }

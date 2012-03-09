@@ -2,13 +2,13 @@
 class My_View_Helper_Thumbnail extends Zend_View_Helper_Abstract
 {
 
-    private $uploadUrl;
-    private $uploadPath;
+    private $_uploadUrl;
+    private $_uploadPath;
     
     public function __construct(){
         $configs = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('files');
-        $this->uploadUrl = $configs['image_upload_url'];
-        $this->uploadPath = $configs['image_upload_path'];
+        $this->_uploadUrl = $configs['image_upload_url'];
+        $this->_uploadPath = $configs['image_upload_path'];
     }
     
     public function thumbnail(){
@@ -23,9 +23,8 @@ class My_View_Helper_Thumbnail extends Zend_View_Helper_Abstract
     public function url($urlOptions)
     {
         $relativePath = $this->getRelativePath($urlOptions);
-        $absUrl = $this->uploadUrl . $relativePath;
-        
-        if (!file_exists($this->uploadPath . $relativePath)){
+        $absUrl = $this->_uploadUrl . $relativePath;
+        if (!file_exists($this->_uploadPath . $relativePath)){
             $absUrl = '/images/no_image.jpg';
         }
         return $absUrl;
@@ -80,8 +79,8 @@ class My_View_Helper_Thumbnail extends Zend_View_Helper_Abstract
         //         	$absUrl .= '/' . $urlOptions['cid'];
         //         }
         
-        if (array_key_exists('iid', $urlOptions)) {
-        	$relativePath .= '/' . $urlOptions['iid'];
+        if (array_key_exists('id', $urlOptions)) {
+        	$relativePath .= '/' . $urlOptions['id'];
         }
         
         $relativePath .= '/thumbnail';

@@ -7,32 +7,25 @@
 	font-family: tahoma;
 	color: #474747;
 }
-
 a {
 	text-decoration:none;
 }
-
 a:hover {
 	text-decoration:underline;
 	color:inherit;
 }
-
 h1,h2,h3,h4 {
 	margin:1em 0;
 }
-
 h1 {
 	font-size: 22px;
 }
-
 h2 {
 	font-size: 18px;
 }
-
 h3 {
 	font-size: 16px;
 }
-
 h4 {
 	font-size: 14px;
 }
@@ -41,7 +34,6 @@ form label.required:after {
 	content:"*";
 	color: red;
 }
-
 .remark {
 	font-size: 10px;
 }
@@ -50,24 +42,27 @@ form label.required:after {
 	margin:10px 0;
 	min-height:700px;
 }
-
+/** text style **/
+.smallSizeText {
+	font-size:12px;
+}
 /** form **/
 dt {
-	float: left;
-    width: 130px;
+	float:left;
+    width:130px;
 	font-weight:bold;
 }
 
-dl.form dt, dl.zend_form dt, dl.zend_form_dojo dt {
+.form dt {
 	font-weight:normal;
 }
 
-dd {
-    padding: 0 0 0.5em 0;
+.form dd {
+    padding:0 0 .5em 130px;
 }
 
-dl {
-	padding: 0.5em;
+dl dl {
+	padding:0;
 }
 /*
 .dojoSelectFormElement {
@@ -133,67 +128,29 @@ li.menuItem a {
 	text-decoration: none;
 }
 
-#contentSection {
-	margin:6px 10px 6px 0;
-}
-
-#contentSection .lastest {
-	width: 252px;
-	padding-right:10px;
-	margin-right:10px;
-	background:url('/images/gray_grad_v_line.png') right center no-repeat;
-	display:inline-block;
-}
-
-#contentSection img {
-	display:block;
-	margin: 5px 0;
-}
-
-#contentSection .headline {
-	font-weight:bold;
-	font-size:18px;
-}
-
-.nextList {
-	display:inline-block;
-	width:452px;
-	vertical-align:top;
-}
-
-.nextList img {
-	margin:0 5px 5px 0 !important;
-}
-
-#contentSection .nextList ul li img {
-	float:left;
-	padding:2px;
-	border:1px solid #DBDBDB;
-}
-
-.nextList ul {
-	list-style-type:none;
-}
-
-#contentSection .nextList ul li {
-	padding:5px 0;
-	margin:5px 0;
-	min-height:75px;
-	border-bottom:1px dashed #DBDBDB;
-}
 /*** ajax ***/
 .loader {
 	display:none;
+	float:right;
 }
-
 .asyncStarting .async {
-	display:none;
+	display:none !important;
 }
-
 .asyncStarting .loader {
 	display:inline-block;
 }
-
+/*** font style ***/
+.headline {
+	font-weight:bold;
+	margin-right:.5em;
+}
+/*** list style ***/
+ul.blueStar {
+	list-style-image:url('/images/blue_star_bullet.png');
+}
+ul.list li {
+	margin:0 1em;
+}
 /**** 16x16 icons ****/
 .icon {
 	height: 16px;
@@ -215,13 +172,18 @@ li.menuItem a {
 	background-image: url('/images/icon_1c92b7.png');
 }
 
-.usersIcon {
+.userIcon {
 	background-position: 0 0;
 	width: 20px;
 }
 
-.bookIcon {
+.productIcon {
 	background-position: 0 -64px;
+	width: 20px;
+}
+
+.contentIcon {
+	background-position: 0 -32px;
 	width: 20px;
 }
 

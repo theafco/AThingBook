@@ -1,16 +1,25 @@
 //Shared Functions
-
-//Open dojo form widget dialog
-function openFormWidgetDialog(options,successCallbak,errorCallback) {
-	var dlg = new dojox.widget.Dialog(options);
+//Open dojo widget dialog
+function openWidgetDialog(options,onDownloadEnd) {
+	dlg = new dojox.widget.Dialog(options);
 	
 	//destroy dialog after close
-	this._userClosedDialogHandle = dojo.connect(dlg, "hide", this, 
+	dojo.connect(dlg, 'onCancel', dlg, 
 			function(e){
-				dlg.destroyRecursive();
+				this.destroyRecursive();
 			});
 	
 	dojo.connect(dlg,'onDownloadEnd',function(e){
+		onDownloadEnd(e);
+	});
+	dlg.show();
+
+	return dlg;
+}
+//Open dojo form widget dialog
+function openFormWidgetDialog(options,successCallback,errorCallback) {
+
+	onDownloadEnd = function(e){
 		dojo.query('form',this.domNode).forEach(function(form){
 			dojo.connect(form,'onsubmit',function(e){
 				okBtn = dijit.byId('ok');
@@ -20,7 +29,7 @@ function openFormWidgetDialog(options,successCallbak,errorCallback) {
 					load:function(response,ioArgs){
 						if(response.code == 0){
 							if (typeof(successCallbak)!='undefined'){
-								successCallbak();
+								successCallback();
 							}
 							dlg.destroyRecursive();
 						}
@@ -38,10 +47,15 @@ function openFormWidgetDialog(options,successCallbak,errorCallback) {
 				stopEvent(e);
 			});
 		});
-	});
+	};
 	
-	dlg.show();
+	openWidgetDialog(options,onDownloadEnd);
 	return dlg;
+}
+
+function ajaxErrorHandler(response){
+	if (response.dojoType == 'cancel'){ return; };
+	alert(response);
 }
 
 function openDialog(options){
@@ -61,29 +75,44 @@ function openDialog(options){
 	dlg.show();
 }
 
-function stopAsync (node, xhr) {
-	if (node) {
-		dojo.removeClass(node, 'asyncStarting');
+function stopAsync(xhr,asyncNode) {
+	//hide loader
+	if (typeof asyncNode !== 'undefined') {
+		hideAsyncNotify(asyncNode);
 	}
-	if  (xhr) {
+	if (typeof xhr !== 'undefined') {
 		xhr.cancel();
 	}
 }
 
-function startAsync (args,asyncNode,useMultipart) {
+function showAsyncNotify(node) {
+	dojo.addClass(node, 'asyncStarting');
+}
+
+function hideAsyncNotify(node) {
+	dojo.removeClass(node, 'asyncStarting');
+}
+
+function startAsync (args,asyncNode) {
 	var xhr;
 	//show loader
 	if (asyncNode) {
-		dojo.addClass(asyncNode, 'asyncStarting');
+		showAsyncNotify(asyncNode);
 	}
 	//ajax worker
 	if (args) {
-		if(useMultipart){
-			//please use post method, buggy
-			var form = document.createElement('form');
-			dojo.attr(form, 'method', 'post');
-			//args.form = form;
-			xhr = dojo.io.iframe.send(args);
+		if (typeof args.form !== 'undefined') {
+			enctype = dojo.attr(args.form,'enctype');
+			if(enctype == 'multipart/form-data'){
+				//please use post method, buggy
+//				var form = document.createElement('form');
+//				dojo.attr(form, 'method', 'post');
+				//args.form = form;
+				dojo.require('dojo.io.iframe');
+				xhr = dojo.io.iframe.send(args);
+			} else {
+				xhr = dojo.xhrPost(args);
+			}
 		} else {
 			xhr = dojo.xhrPost(args);
 		}
@@ -91,146 +120,18 @@ function startAsync (args,asyncNode,useMultipart) {
 	return xhr;
 }
 
-
-function ajaxErrorHandler(response) {
-	if (response.dojoType == 'cancel'){ return; }
-	console.log('error:' + response);
-	alert('ไม่สามารถส่งข้อมูลได้');
-	return response;
-}
-
-function showEditor (e)
-{
-	var itemNode = dojo.query(e.target).parents('.viewListItem')[0];
-	var id = dojo.attr(itemNode,'itemId');
-	var href  =  dojo.attr(itemNode,'ajaxurl');
-
-	if (itemNode){
-		var titleNode = dojo.query('.title', itemNode)[0];
-
-		//cancel current request
-		stopAsync(dojo.query('.title', showEditor.node)[0] ,showEditor.xhr);
-
-		//hide current editor panel
-		if (showEditor.node) {
-			hideEditor(showEditor.node);
-			delete showEditor.node;
-		}
-
-		var args = {
-			url: href,
-			content: {
-				'item' : id
-			},
-			handleAs: 'text',
-			load: function(response, ioArgs) {
-				stopAsync (dojo.query('.title', itemNode)[0])
-				delete showEditor.xhr
-				var editorNode = dojo.query('.editor', itemNode)[0];
-				editorNode.innerHTML = response;
-				dojo.parser.parse(editorNode);
-				//connect events
-				dojo.connect(dijit.byId('editor_form'), 'onSubmit',editHandler);
-				dojo.connect(dijit.byId('cancel'), 'onClick', cancelHandler);
-				//show editor
-				dojo.addClass(itemNode, 'openPanel');
-				//save previous editor id
-				showEditor.node = itemNode;
-				return response;
-			},
-			error: function(response, ioArgs){
-				if (response.dojoType == 'cancel'){ return; }
-				alert("An error occurred, with response: " + response);
-				return response;
-		    }
-		};
-
-		showEditor.xhr = startAsync(args,titleNode);
-	}
-	stopEvent(e);
-}
-
-function editHandler (e)
-{
-	var form = e.target;
-	var node = dojo.query('.openPanel')[0];
-
-	var args = {
-		form: form,
-		load: function(response, ioArgs) {
-			var data = dojo.fromJson(response);
-			if  (data.code == 0) {
-				labelNode = dojo.query('div .value', node)[0];
-				labelNode.innerHTML = data.message;
-			}
-			hideEditor (node);
-			return response;
-		},
-		error: function(response, ioArgs){
-			ajaxErrorHandler(response,ioArgs);
-			return response;
-		}
-	};
-	startAsync (args);
-	stopEvent(e);
-}
-
-function cancelHandler (e)
-{
-	var node = dojo.query(e.target).parents('.viewListItem')[0];
-	hideEditor(node);
-}
-
-function hideEditor (node)
-{
-	if (node) {
-		//destroy dojo widgets
-		var widgets = dijit.findWidgets(node);
-		dojo.forEach(widgets, function(w) {
-			w.destroyRecursive();
-		});
-		//show pre-edit
-		dojo.removeClass(node ,'openPanel');
-	}
-}
-
-function deleteListItem (e)
-{
-	if (confirm('ยืนยันการลบรายการที่เลือก')) {
-
-		var url = dojo.attr(e.target,'ajaxurl');
-		var itemId = dojo.attr(e.target, 'itemId');
-
-		var args = {
-			url: url,
-			form: form,
-			content: {
-				item: itemId
-			},
-			load: function(response, ioArgs) {
-				var data = dojo.fromJson(response);
-					if (data.code == 0) {	
-						dojo.query(e.target).parents('.resultTableListItem').forEach(
-							function(node) {
-								dojo.addClass(node, 'deletedListItem');
-							}
-						);
-					} else {
-						alert(data.message);
-					}
-			},
-			error: function(response,ioArgs) {
-				ajaxErrorHandler(response);
-			}
-		};
-		startAsync(args);
-	}
-	stopEvent(e);
-}
-
 function stopEvent(e) {
 	e.preventDefault();
 	e.stopPropagation();
+}
+
+function findParent(node,cls) {
+	while(true) {
+		if (dojo.hasClass(node,cls)) {
+			return node;
+		}
+		node = node.parentNode;
+	}
 }
 
 //Cart Functions
@@ -333,47 +234,33 @@ function deleteOrderItem(e) {
 	},cellNode);
 }
 
-/** admin **/
-//User
-function viewUserItem(e) {
-	selectNode = e.target;
-	rowNode = selectNode.parentNode;
+/**** user authentication ****/
+function processLogin(e) {
+	if (!e){e = window.event;}
 	
-	params = dojo.fromJson(dojo.attr(rowNode,'params'));
-
-	var args = {
-			title:'ข้อมูลผู้ใช้',
-			href:params.url,
-			modal:true,
-			dimensions:[500,450],
-	};
-	openFormWidgetDialog(args);
-}
-
-function deleteUserItem(e) {
-	if (!confirm('ยืนยันการลบรายการที่เลือก')) {
-		stopEvent(e);
-		return;
+	form = e.target;
+	$responseMsgNode = dojo.query('.responseMessage',form)[0];
+	
+	dojo.empty($responseMsgNode);
+	
+	if (login.xhr) {
+		stopAsync(login.xhr);
+		delete login.xhr;
 	}
-	selectNode = e.target;
-	cellNode = selectNode.parentNode;
-	rowNode = cellNode.parentNode;
-	params = dojo.fromJson(dojo.attr(selectNode,'params'));
-
-	startAsync({
-		url:params.url,
-		content:{item:params.item},
+	
+	login.xhr = startAsync({
+		form:form,
 		handleAs:'json',
 		load:function(response){
-			if (response.code == 0) {
-				dojo.destroy(rowNode);
+			if (response.code == 0){
+				history.go(0);
+			} else {
+				$responseMsgNode.innerHTML = response.message;
 			}
-			alert(response.message);
 		},
 		error:function(response){
-			alert(response);
+			ajaxErrorHandler(response);
 		}
-	},cellNode);
-	
+	});
 	stopEvent(e);
 }

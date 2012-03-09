@@ -1,37 +1,36 @@
 <?php
 class Application_Form_Address extends Application_Form_FormBase
 {
-    
     public function init()
     {
-		$address = new Zend_Dojo_Form_Element_Textarea('address', array(
+		$address1 = new Zend_Dojo_Form_Element_Textarea('address1', array(
 			'label'	=>	'ที่อยู่ปัจจุบัน',
 			'rows'	=>	'3',
 			'cols'	=>	'25',
-			'Maxlength'	=>	'150',
-			'Required'	=>	true,
-			'Trim'	=>	true,
+			'maxLength'	=>	'150',
+			'required'	=>	true,
+			'trim'	=>	true,
 		));
 		
 		$subdistrict = new Zend_Dojo_Form_Element_ValidationTextBox('subdistrict',array(
         	'label'	=>	'แขวง/ตำบล',
-        	'maxlength'	=>	'25',
-			'Required'	=>	true,
-			'Trim'	=>	true,
+        	'maxLength'	=>	'25',
+			'required'	=>	true,
+			'trim'	=>	true,
         ));
 		
         $district = new Zend_Dojo_Form_Element_ValidationTextBox('district',array(
         	'label'	=>	'เขต/อำเภอ',
-        	'maxlength'	=>	'25',
-        	'Required'	=>	true,
-        	'Trim'	=>	true,
+        	'maxLength'	=>	'25',
+        	'required'	=>	true,
+        	'trim'	=>	true,
         ));
         
         $province = new Zend_Dojo_Form_Element_FilteringSelect('province_code',array(
         	'label'	=>	'จังหวัด',
         	'multiOptions'	=> My_Data_Province::getInstance()->getAll(),
-        	'Value'	=>	10,
-        	'Required'	=>	true,
+        	'value'	=>	10,
+        	'required'	=>	true,
         	'dijitParams'	=>	array(
         		'placeHolder'	=>	'ระบุจังหวัด',
         	),
@@ -39,16 +38,17 @@ class Application_Form_Address extends Application_Form_FormBase
 
         $zipcode = new Zend_Dojo_Form_Element_ValidationTextBox('zipcode',array(
         	'label'	=>	'รหัสไปรษณีย์',
-        	'maxlength'	=>	'5',
-        	'Required'	=>	true,
-        	'Trim'	=>	true,
+        	'maxLength'	=>	'5',
+        	'required'	=>	true,
         	'dijitParams'	=>	array(
-        		'regExp'	=>	'\d{5}',
+        		'trim'	=>	true,
+        		'validator'	=>	'dojox.validate.us.isZipCode',
         	),
         ));
+        $this->_dojoHelper->dojo()->requireModule('dojox.validate.us');
 
         $this->addElements(array(
-        	$address,
+        	$address1,
         	$subdistrict,
         	$district,
         	$province,

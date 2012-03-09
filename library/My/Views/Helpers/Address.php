@@ -1,13 +1,47 @@
 <?php
 class My_View_Helper_Address extends Zend_View_Helper_Abstract
 {
-    public function address(/*array*/$data) {
-        $string = $data['address'] . ' ';
-        $string .= (($data['province_code']==10)?'แขวง':'ตำบล') . $data['subdistrict'] . ' ';
-        $string .= (($data['province_code']==10)?'เขต':'อำเภอ') . $data['district'] . ' ';
-        $string .= 'จังหวัด' . My_Data_Province::getInstance()->getById($data['province_code']) . ' ';
-        $string .= $data['zipcode'];
-        return $string;
+	/**
+	 * Return full address
+	 * @param array $address
+	 * @return string
+	 */
+    public function address($address)
+    {
+        if (array_key_exists('address1', $address)) {
+            $strAddress = $address['address1'] . ' ';
+        } else {
+            throw new Zend_Exception('Invalid parameters:address1');
+        }
+        
+        if (array_key_exists('provincecode', $address)) {
+            $provinceCode = $address['provincecode'];
+        } else {
+            throw new Zend_Exception('Invalid parameters:provincecode');
+        }
+        
+        if (array_key_exists('subdistrict', $address)) {
+        	$strAddress .= ( ($provinceCode == 10)?'แขวง':'ตำบล' ) . $address['subdistrict'] . ' ';
+        } else {
+            throw new Zend_Exception('Invalid parameters:subdistrict');
+        }
+        
+        if (array_key_exists('district', $address)) {
+        	$strAddress .= ( ($provinceCode == 10)?'เขต':'อำเภอ' ) . $address['district'] . ' ';
+        } else {
+        	throw new Zend_Exception('Invalid parameters:district');
+        }
+        
+        $strAddress .= 'จังหวัด' . My_Data_Province::getInstance()->getById($provinceCode) . ' ';
+
+        if (array_key_exists('district', $address)) {
+        	$strAddress .= $address['zipcode'];
+        } else {
+        	throw new Zend_Exception('Invalid parameters:zipcode');
+        }
+
+        return $strAddress;
     }
+    
 }
 ?>

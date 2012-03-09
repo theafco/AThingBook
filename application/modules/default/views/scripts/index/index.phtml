@@ -8,7 +8,6 @@ $this->dojo()
 		'dijit.form.NumberSpinner',
 		//'dojo.fx.easing',
 	));
-
 $this->dojo()->onLoadCaptureStart();
 ?>
 function(){
@@ -22,9 +21,9 @@ function(){
 		<div id="normalBookThumb">
 			<?php 
 			$thumbHelper = $this->thumbnail();
-			foreach ($this->normalBooks as $book): 
+			foreach ($this->products['normalBook'] as $book): 
 			
-				$thumbUrl = $thumbHelper->url(array('group'=>'products','iid'=>$book->id,'size'=>'small'));
+				$thumbUrl = $thumbHelper->url(array('group'=>'products','id'=>$book->rowid,'size'=>'small'));
 				if ($thumbHelper->isExist($thumbUrl)) {
 				    $dim = $thumbHelper->getDimensions($thumbUrl);
 				    $isHorizontal = $dim['isHorizontal'];
@@ -42,20 +41,21 @@ function(){
                 		<?php if($book->sale_price) :?>
                 		<div class="sale">ราคาพิเศษ<span><?=$book->sale_price?></span>บาท</div>
                 		<?php endif;?>
-                		<span class="orderButton sliderOrderButton" params="{url:'<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$book->id))?>'}"></span>
+                		<span class="orderButton" params="{url:'<?=$this->url(array('controller'=>'cart-index','action'=>'ajax-form','module'=>'shop','format'=>'html','name'=>'order','id'=>$book->rowid),null,true)?>'}"></span>
+                		<a href="<?=$this->url(array('action'=>'view','controller'=>'product-index','module'=>'shop','id'=>$book->rowid),null,true)?>" class="infoButton"></a>
                 </div>
 			</div>	
 			<?php endforeach;?>
 		</div>			
 	</div>
 </div>
-<div class="title_bar"><span class="title_text">หนังสือธรรมทาน</span><a href="<?=$this->url(array('controller'=>'product','action'=>'index','cat'=>2))?>" class="see_all">ดูทั้งหมด</a></div>
+<div class="title_bar"><span class="title_text">หนังสือธรรมทาน</span><a href="<?=$this->url(array('action'=>'index','controller'=>'product-index','module'=>'shop','category'=>2),null,true)?>" class="see_all">ดูทั้งหมด</a></div>
 <div id="dedicatedBookContainer">	
 	<div id="dedicatedBookThumbContainer">			
 		<div id="dedicatedBookThumb">
 			<?php 
-			foreach ($this->dedicatedBooks as $book):
-				$thumbUrl = $thumbHelper->url(array('group'=>'products','cid'=>$book->category_id,'iid'=>$book->id,'size'=>'small'));
+			foreach ($this->products['dedicatedBook'] as $book):
+				$thumbUrl = $thumbHelper->url(array('group'=>'products','cid'=>$book->category_id,'id'=>$book->rowid,'size'=>'small'));
 				if ($thumbHelper->isExist($thumbUrl)) {
 				    $dim = $thumbHelper->getDimensions($thumbUrl);
 				    $isHorizontal = $dim['isHorizontal'];
@@ -72,7 +72,8 @@ function(){
                 		<?php if($book->sale_price) :?>
                 		<div class="sale">ราคาพิเศษ<span><?=$book->sale_price?></span>บาท</div>
                 		<?php endif;?>
-                		<span class="orderButton sliderOrderButton" params="{url:'<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$book->id))?>'}"></span>
+                		<span class="orderButton" params="{url:'<?=$this->url(array('controller'=>'cart-index','action'=>'ajax-form','module'=>'shop','format'=>'html','name'=>'order','id'=>$book->rowid),null,true)?>'}"></span>
+                		<a href="<?=$this->url(array('action'=>'view','controller'=>'product-index','module'=>'shop','id'=>$book->rowid),null,true)?>" class="infoButton"></a>
                 </div>
 			</div>	
 			<?php endforeach;?>
@@ -80,27 +81,48 @@ function(){
 	</div>
 </div>
 <div class="title_bar"><span class="title_text">การ์ตูนธรรมมะ</span><a href="<?=$this->url(array('controller'=>'content','action'=>'index','cat'=>2))?>" class="see_all">ดูทั้งหมด</a></div>
-การ์ตูนธรรมมะ
-<br />
-<br />
-<div class="title_bar"><span class="title_text">บทความน่าอ่าน</span><a href="<?=$this->url(array('controller'=>'content','action'=>'index','cat'=>1))?>" class="see_all">ดูทั้งหมด</a></div>
-<div id="contentSection">
-	<div class="lastest">
+<div class="verticalStyleContainer">
+	<div class="lastestList">
 	<?php $lastest=true;?>
-	<?php foreach ($this->contents as $content): ?>
+	<?php foreach ($this->contents['cartoon'] as $content): ?>
 		<?php $viewLink=$this->url(array('controller'=>'content','action'=>'view','item'=>$content->id))?>
 		<?php if($lastest==true) :?>
-		<a href="<?=$viewLink?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','cid'=>$content->category_id,'iid'=>$content->id,'size'=>'medium'))?>" width="249px" height="178px">
-		<span class="headline"><?=$content->name?></a></span> <span><?=strip_tags($content->body)?></span>
-		<span class="blackBtn"><span class="counter viewCounter">18</span></span><span class="blackBtn"><span class="counter commentCounter">26</span></span>
+		<a href="<?=$viewLink?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','id'=>$content->rowid,'size'=>'medium'))?>" width="249px" height="178px">
+		<span class="headline"><?=$content->name?></a></span><span><?=strip_tags($content->body)?></span>
+		<div>
+			<!-- TODO: should make another static module? -->
+			<span class="blackBtn"><span class="counter viewCounter">18</span></span><span class="blackBtn"><span class="counter commentCounter">26</span></span>
+		</div>
 	</div>
-	<div class="nextList">
-		<ul>
+	<ul class="nextList">
 			<?php $lastest=false;?>
 		<?php else:?>
-		    <li><a href="<?=$viewLink?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','cid'=>$content->category_id,'iid'=>$content->id,'size'=>'small'))?>" width="84px" height="60px"><span class="headline"><?=$content->name?></span></a> <?=strip_tags($content->body)?></li>
+		    <li class="item"><a href="<?=$viewLink?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','id'=>$content->rowid,'size'=>'small'))?>" width="125px" height="89px"><span class="headline"><?=$content->name?></span></a> <?=strip_tags($content->body)?></li>
 		<?php endif;?>
 	<?php endforeach;?>
-		</ul>
+	</ul>
+</div>
+<div class="title_bar"><span class="title_text">บทความน่าอ่าน</span><a href="<?=$this->url(array('controller'=>'content','action'=>'index','cat'=>1))?>" class="see_all">ดูทั้งหมด</a></div>
+<div class="verticalStyleContainer">
+	<div class="lastestList">
+	<?php $lastest=true;?>
+	<?php foreach ($this->contents['article'] as $content): ?>
+		<?php $viewLink=$this->url(array('controller'=>'content','action'=>'view','item'=>$content->id))?>
+		<?php if($lastest==true) :?>
+		<a href="<?=$viewLink?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','id'=>$content->rowid,'size'=>'medium'))?>" width="249px" height="178px">
+		<span class="headline"><?=$content->name?></a></span><span><?=strip_tags($content->body)?></span>
+		<div>
+			<!-- TODO: should make another static module? -->
+			<span class="blackBtn"><span class="counter viewCounter">18</span></span><span class="blackBtn"><span class="counter commentCounter">26</span></span>
+		</div>
 	</div>
+
+	<ul class="nextList">
+			<?php $lastest=false;?>
+		<?php else:?>
+		    <li class="item"><a href="<?=$viewLink?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','id'=>$content->rowid,'size'=>'small'))?>" width="125px" height="89px"><span class="headline"><?=$content->name?></span></a> <?=strip_tags($content->body)?></li>
+		<?php endif;?>
+	<?php endforeach;?>
+	</ul>
+
 </div>

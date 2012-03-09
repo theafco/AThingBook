@@ -1,10 +1,12 @@
 <?php
 class Model_Base extends Doctrine_Record
 {
+    protected $_filters = array();
 
     public function createQuery($alias){
     	$q = $this->getTable()->createQuery($alias);
-    	$q->addWhere('is_deleted = 0');
+    	$q	->addWhere('is_deleted = 0')
+    		->addOrderBy('id DESC');
     	return $q;
     }
     
@@ -13,10 +15,14 @@ class Model_Base extends Doctrine_Record
         $this->is_deleted  = true;
         $this->save();
     }
-    
-    public function findAll($hydrationMode=null){
+    /**
+     * Return all records
+     * @param boolean $descendant
+     * @throws Doctrine_Record_Exception
+     */
+    public function findAll(){
     	$q = $this->createQuery('r');
-    	return $q->execute(array(),$hydrationMode);
+    	return $q->execute();
     }
     /**
      * 
@@ -25,18 +31,31 @@ class Model_Base extends Doctrine_Record
      * 
      * @return Model_*
      */
-    public function findOneById($value,$hydrationMode = null){
+    public function findOneById($value)
+    {
     	$q = $this->createQuery('r');
     	$q	->	addWhere('r.id = ?', $value)
     	-> limit(1);
-    	return $q->fetchOne(array(),$hydrationMode);
+    	return $q->fetchOne();
+    }
+    /**
+     * 
+     * @param string $key
+     * @param string $value
+     */
+    public function findOneBy($key,$value)
+    {
+        $q = $this->createQuery('r');
+        $q	->	addWhere("r.$key = ?", $value)
+        	-> limit(1);
+        return $q->fetchOne();
     }
     
-    public function findLast($limit,$hydrationMode=null){
-    	$q = $this->createQuery('r');
-    	$q	->addOrderBy('r.id DESC')
-    	->limit($limit);
-    	return $q->execute(array(),$hydrationMode);
+    public function findLast($limit){
+    	$q = $this->createQuery('r')
+    		->limit($limit);
+    	return $q->execute();
     }
+    
 }
 ?>

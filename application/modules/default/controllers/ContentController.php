@@ -12,16 +12,23 @@ class Default_ContentController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $q = $this->content_model->createQuery('c');
-        $q	->addOrderBy('c.id DESC');
-        $this->view->contents = $q->execute();
+//         $catId = $this->getRequest()->getParam('cat');
+//         $contents = $this->_helper->content->getLastestContentByCategory($catId);
+        
+//         //Block the page, if no product.
+//         if (!$contents->count()) {
+//         	throw new Zend_Controller_Action_Exception('Invalid Content',404);
+//         }
+        
+//         $this->_helper->layout()->headline = $contents->getFirst()->category->name;
+//         $this->view->contents = $contents;
     }
 
     public function viewAction()
     {
-        $itemId = $this->getRequest()->getParam('item');
-        $content = $this->content_model->findOneById($itemId);
-        $this->view->content = $content;
+//         $itemId = $this->getRequest()->getParam('item');
+//         $content = $this->content_model->findOneById($itemId);
+//         $this->view->content = $content;
     }
 
 

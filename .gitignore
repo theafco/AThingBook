@@ -2,12 +2,13 @@
 .buildpath
 .project
 .settings/
-docs/
+[d|D]ocs/
 tests/
 public/uploads
 application/models/doctrine
 public/js/libs
-
+public/ckeditor
+public/kcfinder
 #Backup files#
 *.[b|B]ak
 

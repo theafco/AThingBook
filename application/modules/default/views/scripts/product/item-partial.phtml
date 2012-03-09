@@ -20,7 +20,8 @@ if ($thumbHelper->isExist($thumbUrl)) {
                 		<?php if($product->sale_price) :?>
                 		<div class="sale">ราคาพิเศษ<span><?=$product->sale_price?></span>บาท</div>
                 		<?php endif;?>
-                		<span class="orderButton sliderOrderButton" params="{url:'<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$product->id),null,true)?>'}"></span>
+                		<span class="orderButton" params="{url:'<?=$this->url(array('controller'=>'cart','action'=>'ajax-form','format'=>'html','name'=>'order','item'=>$product->id),null,true)?>'}"></span>
+                		<a href="<?=$this->url(array('controller'=>'product','action'=>'view','item'=>$product->id))?>" class="infoButton"></a>
                 </div>
 	</div>
 </div>	

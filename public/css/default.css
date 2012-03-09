@@ -16,8 +16,7 @@ div#mainContentContainer {
 	width:739px;
 	display:inline-block;
 	/* border-right:1px solid #a8a8a8; */
-	min-height:800px;
-	padding:1em 0;
+	min-height:900px;
 }
 
 div#rightContentContainer {
@@ -25,34 +24,6 @@ div#rightContentContainer {
 	width:245px;
 }
 
-div#footerContainer {
-	background-image:url('/images/footer_separator.png');
-	background-repeat:no-repeat;
-	height:300px;
-	background-position:center top;
-}
-
-ul#footerNavigator {}
-
-ul#footerNavigator li {
-	list-style-type:none
-}
-
-ul#footerNavigator > li {
-	display:inline-block;
-	vertical-align:top;
-	margin:25px;
-}
-
-ul#footerNavigator li {
-	font-size:14px;
-}
-
-ul#footerNavigator li.topic {
-	font-size:18px;
-	color:#1fa4cd;
-	margin-bottom:15px;
-}
 
 /**** Menu ****/
 
@@ -105,7 +76,7 @@ li.mainMenuItem a:hover {
 }
 
 .title_bar .title_text:before {
-	content:url('/images/candle_topic_list.png');
+	content:url('/images/soul_icon.png');
 }
 
 .title_bar .title_text {
@@ -122,13 +93,6 @@ li.mainMenuItem a:hover {
 	margin: 7px 0 !important;
 }
 
-.smallAppstore {
-	width:108px;
-	height:36px;
-	opacity:0.7;
-	margin: 10px 0;
-}
-
 .bigAppstore {
 	width:225px;
 	height:76px;
@@ -141,32 +105,46 @@ li.mainMenuItem a:hover {
 
 .websiteLogo .textLogo {
 	position:absolute;
-	top:20px;
+	top:25px;
 	left:75px;
 }
-
-div.login {
+/** login form **/
+#loginContainer {
 	float:right;
-	background:url('/images/login_separator_bg.png') top left no-repeat;
-	padding: 10px 20px;
+/* 	background:url('/images/login_separator_bg.png') top left no-repeat; */
+	min-width:204px;
 	height:78px;
+	padding:.5em 0 0 .5em;
 }
-
-div.login .label {
+#loginContainer a, #cartItemCount {
 	font-size:12px;
+}
+#cartItemCount {
+	font-weight:bold;
+	color:red;
+}
+#loginContainer .logout {
+	font-size:12px;
+	float:right;
+}
+#loginForm dt {
 	width:50px;
-	display:inline-block;
 }
-
-div.login dd {
-	line-height:25px;
-}
-
-div.login a{
+#loginForm label, #loginForm input, #loginForm .responseMessage {
 	font-size:12px;
-	margin:0 20px 0 0;
+	line-height:16px;
 }
-
+#loginForm dd {
+/* 	line-height:25px; */
+	padding-left:50px;
+	padding-bottom:2px;
+}
+#loginForm input[type='text'],#loginForm input[type='password'] {
+	width:150px;
+}
+#loginForm .responseMessage {
+	color:red;
+}
 /*** Content Common ***/
 .viewStat:before {
 	content:url('/images/view_stat_icon.png');
@@ -209,72 +187,118 @@ div.login a{
 }
 
 /*** article ***/
-#article .listItem {
+.articleContainer .article {
 	border:1px solid #DBDBDB;
-	border-radius:3px;
-	padding:5px;
-	margin-bottom:10px;
-	min-height:178px;
+	border-radius:5px;
+	padding:1em;
+	margin:.5em 0;
 }
-
-#article .description h2 a {
-	color:#ff6600;
-	line-height:30px;
+.articleContainer h2 {
+	margin:0;
 }
-
-#article img {
-	float:left;
+.articleContainer img {
+	margin-right:1em;
 }
-
-#article .description {
-	padding:0 5px 0 265px;
+.articleContainer .meta {
+	vertical-align:top;
+	width:435px;
+	display:inline-block;
 }
-
-#article .headline {
-	display:block;
-	margin:5px 0;
+.articleContainer .description {
+	margin-top:1em;
 }
-
-#article .stat {
+.articleContainer .stat {
 	margin-top:20px;
 	text-align:right;
 }
-
 #articleDetail {
 	border:1px solid #dbdbdb;
 	border-radius:5px;
 	padding:10px;
 }
-
 #articleDetail #contentBody {
 	margin:30px 0;
 }
 
+/** contents **/
+.verticalStyleContainer {
+	margin:.5em 0;
+}
+.verticalStyleContainer .lastestList {
+	padding-right:.5em;
+	background:url('/images/gray_grad_v_line.png') right center no-repeat;
+	width:249px;
+	display:inline-block;
+}
+.verticalStyleContainer img {
+	display:block;
+	margin:.5em 0;
+}
+.verticalStyleContainer .headline {
+	font-weight:bold;
+	font-size:18px;
+}
+.verticalStyleContainer .nextList img {
+	float:left;
+	border:1px solid #DBDBDB;
+	margin:0 5px 5px 0 !important;
+}
+.verticalStyleContainer .nextList {
+	list-style-type:none;
+	display:inline-block;
+	margin:0 .5em;
+	width:454px;
+	vertical-align:top;
+}
+.verticalStyleContainer .nextList .item {
+	padding:.5em 0;
+	min-height:91px;
+	border-bottom:1px dashed #DBDBDB;
+}
+#newsContentContainer {
+	margin:1em 0;
+}
+#newsContentContainer .headline {
+	color:#1FA4CD !important;
+}
+#newsContentContainer a:hover {
+	color:#1FA4CD !important;
+}
+#newsContentContainer .newsContent {
+	margin-top:1em;
+}
 /** cart **/
-.orderButton {
-	background:url('/images/cart_order_btn.png') no-repeat center top;
+.orderButton, .infoButton {
+	background:no-repeat center top;
 	display:inline-block !important;
 	cursor:pointer;
 	width:32px;
 	height:50px;
 }
-
-.sliderHorizontalLayout .sliderOrderButton {
+.orderButton {
+	background-image:url('/images/cart_order_btn.png');
+}
+.infoButton {
+	background-image:url('/images/cart_info_btn.png');
+}
+.sliderHorizontalLayout .orderButton, .sliderHorizontalLayout .infoButton {
 	position:absolute;
 	top:0px;
+}
+.sliderHorizontalLayout .orderButton {
 	right:-40px;
 }
-
+.sliderHorizontalLayout .infoButton {
+	right:-78px;
+}
 .price {
 	margin:20px 0 5px;
 }
-
 .sliderHorizontalLayout .price {
 	position:absolute;
 	top:100px;
 	left:5px;
 }
-
 .price div, .price span {
 	font-size:14px;
 	color:#339933;
@@ -282,22 +306,23 @@ div.login a{
 .sliderHorizontalLayout div {
 	margin-right:10px;
 }
-
 .price span {
 	margin:0 5px;
 }
-
 .price .notSale span {
 	text-decoration:line-through;
 }
-
 .price .sale, .price .sale span {
 	color:#FF3300;
 	font-weight:bold;
 }
-
-.defaultProductThumbnail .desc {font-size:12px; color:#657686;font-style:italic;}
-
+.defaultProductThumbnail .desc {
+	font-size:12px; 
+	color:#657686;
+}
+.defaultProductThumbnail h4 {
+	margin:0 0 .5em;
+}
 /* thumbnail slider begin */
 
 
@@ -319,3 +344,30 @@ div.login a{
 #normalBookThumb a img, #dedicatedBookThumb a img{ border:1px #333333 solid; margin-right:5px; float:left; }
 
 /* thumbnail slider end */
+
+/** footer **/
+
+#footerContainer {
+	background-image:url('/images/footer_separator.png');
+	background-repeat:no-repeat;
+	min-height:300px;
+	background-position:center top;
+	margin:1em 0;
+	padding:1em 0;
+}
+
+#footerContainer ul {
+	list-style-type:none
+}
+
+ul#footerNavigator > li {
+	display:inline-block;
+	vertical-align:top;
+	padding:0 1em;
+}
+
+ul#footerNavigator li.topic {
+	font-size:18px;
+	color:#1fa4cd;
+	margin-bottom:15px;
+}

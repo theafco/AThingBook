@@ -1,10 +1,11 @@
-<div id="article" class="content">
+<div class="articleContainer">
 	<?php foreach ($this->contents as $content):?>
-	<?php $viewLink=$this->url(array('action'=>'view','item'=>$content->id))?>
-	<div class="listItem">
-		<a href="<?=$viewLink?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','cid'=>$content->category_id,'iid'=>$content->id,'size'=>'medium'))?>" width="249px" height="178px"></a>
-		<div class="description">
-			<h2><a href="<?=$viewLink?>"><?=$content->name?></a></h2><span><?=strip_tags($content->body)?></span>
+	<?php $viewUrl = $this->url(array('action'=>'view','item'=>$content->id))?>
+	<div class="article">
+		<a href="<?=$viewUrl?>"><img src="<?=$this->thumbnail()->url(array('group'=>'contents','cid'=>$content->category_id,'iid'=>$content->id,'size'=>'medium'))?>" width="249px" height="178px"></a>
+		<div class="meta">
+			<a href="<?=$viewUrl?>"><h2><?=$content->name?></h2></a>
+			<div class="description"><?=$content->description?></div>
 			<div class="stat">
 				<span class="viewStat" title="อ่าน">12</span><span class="commentStat" title="แสดงความคิดเห็น">101</span>
 			</div>

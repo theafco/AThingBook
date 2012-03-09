@@ -82,7 +82,8 @@ class My_Data_Province {
 	public static function getInstance(){
 		static $instance = null;
 		if(null===$instance){
-			$instance = new My_Data_Province();
+		    $class = __CLASS__;
+			$instance = new $class();
 		}
 		return $instance;
 	}

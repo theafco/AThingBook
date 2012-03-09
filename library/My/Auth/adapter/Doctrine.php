@@ -5,25 +5,34 @@ class My_Auth_Adapter_Doctrine implements Zend_Auth_Adapter_Interface
 
 	private $_identity;
 	private $_credential;
+	private $_adminMode;
 	private $_resultArray;
 	
-	public function __construct($identity, $credential)
+	public function __construct($identity,$credential,$adminMode=false)
 	{
+	    $this->_adminMode	=	$adminMode;
 		$this->_identity	=	$identity;
 		$this->_credential	= 	$credential;
 	}
 	
-    public function authenticate ()
+    public function authenticate()
     {
-    	$q = Model_User::getInstance()->getTable()->createQuery('u');
+        $userModel = new Model_User();
+    	$q = $userModel->createQuery('u');
     	$q->where('u.email = ? AND u.password = ?', array($this->_identity, md5($this->_credential)));
-    	$result = $q->execute(array(),Doctrine_Core::HYDRATE_RECORD);
+    	$result = $q->execute();
     	
     	if ($result->count() == 1) {
-    		$this->_resultArray = $result->getFirst()->toArray();
-    		return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $this->_identity);
+    	    $user = $result->getFirst();
+    	    if ($this->_adminMode) {
+    	        if (!$user->role->is_admin) {
+    	            return new Zend_Auth_Result(Zend_Auth_Result::FAILURE,null,array('ไม่มีสิทธิ์ผู้ดูแล'));
+    	        }
+    	    }
+    		$this->_resultArray = $user->toArray();
+    		return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS,$this->_identity);
     	} else {
-    		return new Zend_Auth_Result(Zend_Auth_Result::FAILURE, $this->_identity,array('อีเมล์หรือรหัสผ่านไม่ถูกต้อง'));
+    		return new Zend_Auth_Result(Zend_Auth_Result::FAILURE,null,array('รหัสไม่ถูกต้อง'));
     	}
     }
     
