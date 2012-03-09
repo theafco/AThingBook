@@ -9,6 +9,8 @@ application/models/doctrine
 public/js/libs
 public/ckeditor
 public/kcfinder
+public/images/captcha
+
 #Backup files#
 *.[b|B]ak
 
