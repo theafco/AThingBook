@@ -1,0 +1,10 @@
+<?php 
+$news = $this->news;
+$viewUrl = $this->url(array('controller'=>'article-index','action'=>'view','module'=>'content','id'=>$news->rowid),null,true);
+$thumbUrl = $this->thumbnail()->url(array('group'=>'contents','id'=>$news->rowid,'size'=>'medium'));
+?>
+<div class="newsContent">
+	<a href="<?=$viewUrl?>"><img src="<?=$thumbUrl?>" width="249px" height="178px"><div class="headline"><?=$news->name?></div></a>
+	<div><?=$news->description . ' [<a href="' . $viewUrl . '">อ่านต่อ</a>]'?></div>
+</div>
+			

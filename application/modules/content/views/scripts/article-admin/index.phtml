@@ -1,0 +1,14 @@
+<?php 
+$this->dojo()
+	->enable()
+	->requireModule(array(
+		'dijit.form.ValidationTextBox',
+		'dijit.form.Select',
+		'dijit.form.FilteringSelect',
+		'dijit.form.Textarea',
+		'dijit.form.CurrencyTextBox',
+		'dijit.form.RadioButton',
+	));
+?>
+<?=$this->partial('result-table-partial.phtml',array('fields'=>array('id'=>'รหัสบทความ','name'=>'ชื่อหัวข้อ'),'records'=>$this->articles))?>
+<?=$this->partial('right-content.phtml',array('searchForm'=>$this->searchForm))?>

@@ -1,0 +1,5 @@
+<div id="newsContentContainer">
+	<div class="rightColumnTitleBar title_bar"><span class="title_text">ข่าวสาร-กิจกรรม</span></a></div>
+	<?php $this->partialLoop()->setObjectKey('news');?>
+	<?=$this->partialLoop('./index/news-partial.phtml',$this->news)?>
+</div>

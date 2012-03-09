@@ -1,0 +1,126 @@
+<?=$this->doctype()?>
+<html>
+<head>
+<?=$this->headMeta()?>
+<?=$this->headTitle()?>
+<?=$this->headLink()->appendStylesheet('/css/default.css');?>
+
+<?php
+//Setup dojo
+if ($this->dojo()->isEnabled()) {
+	$this->dojo()	->setDjConfig(array(
+						//'JSONPlain'	=>	true,
+						'parseOnLoad'	=>	true,
+						//'isDebug'		=>	true,
+						//'locale'	=>	$this->layout()->locale->getLanguage(),
+					))
+					->addStylesheetModule('dijit.themes.tundra')
+					->addStylesheetModule('dojox.widget.Dialog')
+					/*
+					 * Local
+					 *
+					->setLocalPath('/js/libs/dojo/1.7.1/dojo/dojo.js');
+					//->setLocalPath('http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js');
+					/*
+					 * Cloud
+					 */
+					->setCdnBase(Zend_Dojo::CDN_BASE_GOOGLE)
+					->setCdnDojoPath('/dojo/dojo.js')
+					->setCdnVersion('1.7.2')
+					->useCdn();
+	echo $this->dojo();
+}
+?>
+<!-- must put after dojo -->
+<?=$this->headScript()?>
+</head>
+<body class="tundra">
+<div id="globalContainer">
+	<div id="pageContainer">
+		<div id="headerContainer">
+			<div class="websiteLogo">
+				<img src="/images/logo_athingbook.png" alt="A Thing Book Logo">
+				<img class="textLogo" src="/images/logo_text_athingbook.png" alt="A Thing Book Logo">
+			</div>
+			<?=$this->authen()?>
+			<ul class="menu mainMenu">
+				<li class="menuItem mainMenuItem"><img src="/images/default_main_menu_head.png" style="cursor:pointer" onclick="self.location='/'" /></li>
+				<li class="menuItem mainMenuItem" style="padding-left:0"><a href="<?=$this->url(array('controller'=>'product','action'=>'index','cat'=>1))?>">หนังสือทั่วไป</a></li>
+				<li class="menuItem mainMenuItem"><a href="<?=$this->url(array('controller'=>'product','action'=>'index','cat'=>2))?>">หนังสือธรรมทาน</a></li>
+				<li class="menuItem mainMenuItem"><a href="<?=$this->url(array('controller'=>'content','action'=>'index','cat'=>2))?>">การ์ตูนธรรมมะ</a></li>
+				<li class="menuItem mainMenuItem"><a href="<?=$this->url(array('controller'=>'content','action'=>'index','cat'=>1))?>">บทความ</a></li>
+				<li class="menuItem mainMenuItem"><a href="<?=$this->url(array('controller'=>'content','action'=>'index','cat'=>3))?>">ข่าวสาร</a></li>
+				<li class="menuItem mainMenuItem"><a href="<?=$this->url(array('page'=>'contact'),'static-content',true)?>">ติดต่อเรา</a></li>
+				<li class="menuItem mainMenuItem" style="padding-left:0"><img src="/images/default_main_menu_tail.png" /></li>
+			</ul>
+			<div id="bannerContainer">
+				<img src="/images/banner_1.jpg" width="990px" height="318px">
+			</div>
+		</div>
+		<div id="contentContainer">
+			<div class="title_bar noTopRadius"><span class="title_text"><?=$this->layout()->headline?></span></div>
+				<div id="mainContentContainer">
+					<?php echo $this->layout()->content; ?>
+				</div>
+				<div id="rightContentContainer">
+					<img class="rightColumnItem bigAppstore" src="/images/appstore.png" alt="Available on AppStore">
+					<br />
+					<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,16,0" width="224" height="185" class="rightColumnItem">
+						<param name="movie" value="/images/athing.swf">
+						<param name="quality" value="high">
+						<param name="play" value="true">
+						<param name="LOOP" value="false">
+						<embed src="/images/athing.swf" width="224" height="185" play="true" loop="false" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash">
+						</embed>
+					</object>
+					<?=$this->layout()->rightWidgets[0]?>
+					<img class="rightColumnItem" src="/images/kawaka_banner.png" alt="กะว่าก๋า">
+					<img class="rightColumnItem" src="/images/thedaung_banner.png" alt="เดอะดวง">
+					<img class="rightColumnItem" src="/images/q_a_budha_banner.png" alt="ถามตอบธรรมะ">
+				</div>
+			
+		</div>
+		<div id="footerContainer">
+		<ul id="footerNavigator">
+			<li style="padding:0">
+				<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2F10000eyes&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=false&amp;appId=205667839454037" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
+			</li>
+			<li style="padding-left:0">
+				<ul>
+					<li class="topic">เกี่ยวกับอะธิงก์บุ๊ค</li>
+					<li>ที่มาของเรา</li>
+					<li>ร่วมเป็นสมาชิกกับเรา</li>
+					<li>ติดต่อเรา</li>
+				</ul>
+			</li>
+			<li>
+				<ul>
+					<li class="topic">กลุ่มสินค้า</li>
+					<li>หนังสือทั่วไป</li>
+					<li>หนังสือธรรมทาน</li>
+				</ul>
+			</li>
+			<li>
+				<ul>
+					<li class="topic">เนื้อหาหลัก</li>
+					<li>การ์ตูนธรรมมะ</li>
+					<li>บทความทั่วไป</li>
+					<li>ถามตอบธรรมมะ</li>
+				</ul>
+			</li>
+			<li>
+				<ul>
+					<li class="topic">สงวนลิขสิทธิ์</li>
+					<li>บริษัท แอสมีเดีย จำกัด </li>
+					<li>&copy;2555 สำนักพิมพ์อะธิงก์บุ๊ค</li>
+					<li>
+						<div style="margin:1em 0"><img src="/images/appstore.png" alt="Available on AppStore" width="108px" height="36px" style="opacity:.7"><img src="/images/soul_36x36.png" width="36px" height="36px"></div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		</div>
+ 	</div>
+</div>
+</body>
+</html>

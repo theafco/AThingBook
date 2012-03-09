@@ -1,0 +1,38 @@
+<?php
+$date = new Zend_Date();
+$content = $this->content;
+$thumbHelper = $this->thumbnail();
+$thumbUrl = $thumbHelper->url(array('group'=>'contents','iid'=>$content->id,'size'=>'small',));
+
+$rows = array(
+	array(
+		'label'	=>	'รหัสเนื้อหา',
+		'value'	=>	$content->id,
+		'readonly'	=>	true,
+	),
+	array(
+		'label'	=>	'หมวดเนื้อหา',
+		'value'	=>	$content->category->name,
+		'field'=>	'category',
+	),
+	array(
+		'label'	=>	'ชื่อหัวข้อ',
+		'value'	=>	$content->name,
+		'field'=>	'name',
+	),
+	array(
+		'label'	=>	'รูปประกอบหัวข้อ',
+		'value'	=>	( ($thumbHelper->isExist($thumbUrl))?'<img src="'. $thumbUrl . '?' . time() . '" style="margin-top:10px;">':null ),
+		'field'=>	'thumbnail',
+	),
+	array(
+		'label'	=>	'รายละเอียดเนื้อหา',
+		'value'	=>	'ไม่แสดง',
+		'field'=>	'body',
+		'valueClass'	=>	'grayOut',
+		'options'	=>	array('wyciwyg'=>true),
+	),
+);
+
+echo $this->partial('viewlist-partial.phtml',array('rows'=>$rows,'item'=>$content->id));
+?>

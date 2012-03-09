@@ -1,0 +1,29 @@
+<?php
+$value = $this->value;
+$options = $this->options;
+$controller = $options['controller'];
+
+$urlOptions = array('action'=>'ajax-form','name'=>$value->name,'id'=>$value->id,'format'=>'html');
+if (!empty($controller)) {
+	$urlOptions['controller'] = $controller;
+}
+
+$params = array(
+		'url'	=>	$this->url($urlOptions),
+);
+
+$params['options'] = array();
+$jsonParams = Zend_Json_Encoder::encode($params);
+?>
+<li>
+<dl class="title editable" field="<?=$value->name?>" params=<?=$jsonParams?>>
+	<dt class="label"></dt>
+	<dd class="value-element">
+		<value>
+			<?=$value->toString()?> <span class="async icon color1C92B7 closeIcon" params="<?=$this->url(array('action'=>'delete','controller'=>$controller,'id'=>$value->id))?>"></span>
+		</value>
+		<span class="async icon color1C92B7 editIcon"></span>
+		<img class="loader" src="/images/ajax-loader1.gif" />
+	</dd>
+</dl>
+</li>

@@ -1,0 +1,41 @@
+@CHARSET "ISO-8859-1";
+
+/**** view list ****/
+#viewList {
+	width: 500px;
+}
+#viewList .item {
+	padding: .5em 0;
+	border-top: 1px solid #EAEAEA;
+}
+#viewList .openPanel .title {
+	display:none;
+}
+#viewList .item span {
+	display:inline-block;
+}
+#viewList .item .label {
+	padding-left: 10px;
+	width: 150px;
+	color:#1FA4CD;
+	vertical-align:top;
+}
+#viewList .editable {
+	cursor:pointer;
+}
+#viewList .editable .editIcon {
+	opacity:0;
+	float:right;
+}
+#viewList .editable:hover .editIcon {
+	opacity:1;
+}
+#viewList .sublist {
+	padding-left:160px;
+}
+#viewList .sublist .closeIcon {
+	opacity:.1;
+}
+#viewList .sublist .closeIcon:hover {
+	opacity:1;
+}

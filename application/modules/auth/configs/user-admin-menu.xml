@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+<navigation>
+	<user>
+        <label>แสดงรายการผู้ใช้</label>
+        <uri></uri>
+        <pages>
+        	<child1>
+        		<label>ผู้ใช้ทั้งหมด</label>
+        		<uri>/auth/user-admin</uri>
+        	</child1>
+        	<child2>
+        		<label>ผู้ใช้มาใหม่วันนี้</label>
+        		<uri>/</uri>
+        	</child2>
+        	<child3>
+        		<label>สมาชิกรอยืนยัน</label>
+        		<uri>/</uri>
+        	</child3>
+        	<child4>
+        		<label>สมาชิกทั้งหมด</label>
+        		<uri>/auth/user-admin/index/role/2</uri>
+        	</child4>
+        	<child5>
+        		<label>ผู้ดูแลทั้งหมด</label>
+        		<uri>/auth/user-admin/index/role/3</uri>
+        	</child5>
+        	<child6>
+        		<label>เพิ่มผู้ใช้รายใหม่</label>
+        		<uri>/auth/user-admin/add</uri>
+        	</child6>
+        </pages>
+	</user>
+</navigation>
+</configdata>

@@ -1,0 +1,43 @@
+<?php
+$date = new Zend_Date();
+$article = $this->article;
+$thumbHelper = $this->thumbnail();
+$thumbUrl = $thumbHelper->url(array('group'=>'contents','id'=>$article->rowid,'size'=>'small',));
+
+$fields = array(
+	array(
+		'label'	=>	'รหัสเนื้อหา',
+		'value'	=>	$article->id,
+		'readonly'	=>	true,
+	),
+	array(
+		'name'=>	'category',
+		'label'	=>	'หมวดเนื้อหา',
+		'value'	=>	$article->category->name,
+	),
+	array(
+		'name'=>	'name',
+		'label'	=>	'ชื่อหัวข้อ',
+		'value'	=>	$article->name,
+	),
+	array(
+		'name'=>	'thumbnail',
+		'label'	=>	'รูปประกอบหัวข้อ',
+		'value'	=>	( ($thumbHelper->isExist($thumbUrl))?'<img src="'. $thumbUrl . '?' . time() . '" style="margin-top:10px;">':null ),
+	),
+	array(
+		'name'=>	'body',
+		'label'	=>	'รายละเอียดเนื้อหา',
+		'value'	=>	'ไม่แสดง',
+		'valueClass'	=>	'grayOut',
+		'options'	=>	array('wyciwyg'=>true),
+	),
+	array(
+			'name'=>	'publish',
+			'label'	=>	'การเผยแพร่',
+			'value'	=>	$article->publish,
+	),
+);
+
+echo $this->partial('viewlist-partial.phtml',array('fields'=>$fields,'object'=>$article));
+?>

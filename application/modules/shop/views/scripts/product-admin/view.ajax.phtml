@@ -1,0 +1,65 @@
+<?php
+$date = new Zend_Date();
+$product = $this->product;
+
+$thumbHelper = $this->thumbnail();
+$thumbUrl = $thumbHelper->url(array('group'=>'products','id'=>$product->rowid,'size'=>'small',));
+
+$fields = array(
+				array(
+					'name'	=>	'id',
+					'label'	=>	'รหัสสินค้า',
+					'value'	=>	$product->id,
+					'options'	=>	array('readonly'=>true),
+				),
+				array(
+					'name'=>	'category',
+					'label'	=>	'หมวดสินค้า',
+					'value'	=>	$product->categoryName,
+				),
+				array(
+					'name'=>	'name',
+					'label'	=>	'ชื่อสินค้า',
+					'value'	=>	$product->name,
+				),
+				array(
+					'name'=>	'thumbnail',
+					'label'	=>	'รูปสินค้า',
+					'value'	=>	( ($thumbHelper->isExist($thumbUrl))?'<img src="'. $thumbUrl . '?' . time() . '" style="margin-top:10px;">':null ),
+				),
+				array(
+					'name'=>	'description',
+					'label'	=>	'รายละเอียด',
+					'value'	=>	$product->description,
+				),
+				array(
+					'name'=>	'price',
+					'label'	=>	'ราคาขาย',
+					'value'	=>	Zend_Registry::get('Zend_Currency')->toCurrency($product->price),
+				),
+				array(
+					'name'=>	'content',
+					'label'	=>	'รายละเอียดสินค้า',
+					array('value'=>'ไม่แสดง',array('class'=>'grayOut')),
+					'options'	=>	array(
+						'wyciwyg'=>true
+					),
+				),
+				array(
+					'name'	=>	'promotion',
+					'label'	=>	'โปรโมชั่นพิเศษ<br /><a href="">เพิ่ม</a>',
+					'value'	=>	$product->promotions,
+					'options'	=>	array(
+						'readonly'=>true,
+						'controller'=>'promotion-admin',
+					),
+				),
+				array(
+					'name'=>	'release',
+					'label'	=>	'สถานะการขาย',
+					'value'	=>	$product->release,
+				),
+);
+
+echo $this->partial('viewlist-partial.phtml',array('fields'=>$fields,'object'=>$product));
+?>

@@ -1,0 +1,26 @@
+<?php
+$article = $this->article;
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	f = dijit.byId('newArticleForm2');
+	s = dijit.byId('addNewArticle2');
+	dojo.connect(f,'onSubmit',function(){
+		if (!f.isValid()) {
+			s.cancel();
+			alert('ป้อนข้อมูลไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง');
+		}
+	});
+}
+<?$this->dojo()->onLoadCaptureEnd();?>
+<h1>กรอกข้อมูลรายละเอียดเนื้อหา</h1>
+<dl class="itemRoundLightGrayBox preview">
+	<?php $thumbUrl = $this->thumbnail()->url(array('group'=>'contents','id'=>$article->id,'size'=>'medium'))?>
+	<dt>รูปประกอบ</dt>
+	<dd><img src="<?=$thumbUrl?>"></dd>
+	<dt>หมวดหมู่</dt>
+	<dd><?=$article->category->name?></dd>
+	<dt>หัวเรื่อง</dt><dd><?=$article->name?></dd>
+	<dt>คำอธิบาย</dt><dd><?=$article->description?></dd>
+</dl>
+<?=$this->newArticleForm2?>

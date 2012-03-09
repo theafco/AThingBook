@@ -1,0 +1,45 @@
+<?php 
+$this->dojo()
+	->enable()
+	->requireModule(array(
+		'dijit.form.Form',
+		'dijit.form.Button',
+		'dojox.form.BusyButton',
+		'dojox.widget.Dialog',
+	));
+?>
+
+<?php $this->dojo()->onLoadCaptureStart();?>
+function() {
+	dojo.query('.deleleOp').connect('onclick','deleteResultTableItem');
+	dojo.query('#resultTable .item').connect('onclick','viewResultTableItem');
+}
+<?php $this->dojo()->onLoadCaptureEnd();?>
+
+<?php 
+$fields = $this->fields;
+$records = $this->records;
+?>
+<div id="searchResultLabel">ผลการค้นหาพบทั้งหมด <?=Zend_Locale_Format::toNumber($records->count())?> รายการ</div>
+	<table id="resultTable">
+		<tr>
+			<?php foreach ($fields as $field) :?>
+			<th><?=$field?></th>
+			<?php endforeach;?>
+		</tr>
+		<?php foreach ($records as $record):?>
+			<tr class="item" params="{url:'<?=$this->url(array('action'=>'view','id'=>$record->id,'format'=>'html'))?>'}">
+				<?php $i=1; ?>
+				<?php foreach ($fields as $name=>$value) :?>
+				<td>
+					<span field="<?=$name?>"><?=$record->$name?></span>
+					<?php if (count($fields) == $i) :?>
+					<span class="deleleOp async icon color1C92B7 closeIcon" params="{url:'<?=$this->url(array('action'=>'delete','id'=>$record->id,'format'=>'json'))?>'}"></span><img class="loader" src="/images/ajax-loader1.gif">
+					<?php endif;?>
+				</td>
+				<?php $i++;?>
+				<?php endforeach;?>
+			</tr>
+		<?php endforeach;?>
+	</table>
+</div>

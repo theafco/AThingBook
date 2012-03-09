@@ -1,0 +1,32 @@
+<?php $this->dojo()->onLoadCaptureStart()?>
+function() {
+	dojo.query('.item',viewList)->connect('onclick','viewListEditor');
+}
+<?php $this->dojo()->onLoadCaptureEnd()?>
+
+<ul id="viewList">
+<?php foreach ($this->rows as $field):?>
+	<?php 
+	$params = array(
+		'url'	=>	$this->url(array('action'=>'editor','editor'=>$field['field'],'item'=>$this->item,'format'=>'html'),null),
+	);
+	if (is_array($field['options'])) {
+		$params['options'] = $field['options'];
+	} else {
+	    $params['options'] = array();
+	}
+	$jsonParams = Zend_Json_Encoder::encode($params);
+	?>
+	<li class="item <?=( $field['readonly'] ?'readonly':null )?>" field="<?=$field['field']?>" params=<?=$jsonParams?>>
+		<div class="title">
+			<span class="label"><?=$field['label']?></span>
+			<span class="value <?=( !empty($field['valueClass']) ? $field['valueClass']:null )?>"><?=( !empty($field['value'])?$field['value']:'<span class="grayOut">ไม่ระบุ</span>' )?></span>
+		<?php if (!$field['readonly']) :?>
+			<span class="async icon color1C92B7 editIcon"></span>
+			<img class="loader" src="/images/ajax-loader1.gif">
+		<?php endif;?>
+		</div>
+		<div class="editor"></div>
+	</li>
+<?php endforeach;?>
+</ul>

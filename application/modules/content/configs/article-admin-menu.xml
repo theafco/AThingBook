@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+<navigation>
+	<user>
+        <label>แสดงรายการเนื้อหา</label>
+        <uri></uri>
+        <pages>
+        	<child1>
+        		<label>ทั้งหมด</label>
+        		<uri>/content/article-admin</uri>
+        	</child1>
+        	<child2>
+        		<label>บทความทั่วไป</label>
+        		<uri>/content/article-admin/index/category/1</uri>
+        	</child2>
+        	<child3>
+        		<label>การ์ตูน</label>
+        		<uri>/content/article-admin/index/category/2</uri>
+        	</child3>
+        	<child4>
+        		<label>ข่าวสารและกิจกรรม</label>
+        		<uri>/content/article-admin/index/category/3</uri>
+        	</child4>
+        	<child5>
+        		<label>อื่นๆ</label>
+        		<uri>/content/article-admin/index/category/4</uri>
+        	</child5>
+        	<child6>
+        		<label>เพิ่มเนื้อหาใหม่</label>
+        		<uri>/content/article-admin/add</uri>
+        	</child6>
+        </pages>
+	</user>
+</navigation>
+</configdata>

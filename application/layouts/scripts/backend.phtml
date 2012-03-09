@@ -1,0 +1,83 @@
+<?=$this->doctype() ?>
+<html>
+<head>
+<?=$this->headMeta() ?>
+<?=$this->headTitle() ?>
+<?=$this->headLink()
+		->appendStylesheet('/css/admin.css')
+		->appendStylesheet('/css/silver-theme.css');
+?>
+<?=$this->headScript()->appendFile('/js/admin.js')?>
+<?php
+/*Setup Dojo*/
+if ($this->dojo()->isEnabled()) {
+	/*
+	 * Dojo initialization
+	 */
+	$this->dojo()	->setDjConfig(array(
+						//'JSONPlain'	=>	true,
+						'parseOnLoad'	=>	true,
+						//'isDebug'		=>	true,
+						//'locale'	=>	$this->layout()->locale->getLanguage(),
+					))
+					->addStylesheetModule('dijit.themes.tundra')
+					->addStylesheetModule('dojox.widget.Dialog')
+					/*
+					 * Local
+					 */
+					->setLocalPath('/js/libs/dojo/1.7.1/dojo/dojo.js');
+					//->setLocalPath('http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js');
+					/*
+					 * Cloud
+					 *
+					->setCdnBase(Zend_Dojo::CDN_BASE_GOOGLE)
+					->setCdnDojoPath(Zend_Dojo::CDN_DOJO_PATH_GOOGLE)
+					->setCdnVersion('1.7.1')
+					->useCdn();*/
+	echo $this->dojo();
+	echo '<style>.tundra .dijitDialogUnderlay { background:#000; };</style>';
+}
+?>
+</head>
+<body class="tundra">
+<div class="globalContainer">
+	<div class="pageContainer">
+		<div class="headerContainer">
+			<div id="mainMenu">
+				<ul class="menu mainMenu">
+					<li class="menuItem mainMenuItem"><img src="/images/main_menu_left.png" style="cursor:pointer"></a></li>
+					<li class="menuItem mainMenuItem"><a href="<?=$this->url(array('controller'=>'cart-admin','action'=>'index','module'=>'shop'))?>">จัดการคำสั่งซื้อ</a></li>
+					<li class="menuItem mainMenuItem"><a href="<?=$this->url(array('controller'=>'product-admin','action'=>'index','module'=>'shop'))?>">จัดการสินค้า</a></li>
+					<li class="menuItem mainMenuItem"><a href="<?=$this->url(array('controller'=>'user-admin','action'=>'index','module'=>'auth'))?>">จัดการผู้ใช้</a></li>
+					<li class="menuItem mainMenuItem"><a href="<?=$this->url(array('controller'=>'article-admin','action'=>'index','module'=>'content'))?>">จัดการเนื้อหา</a></li>
+					<li class="menuItem mainMenuItem"><a href="#">จดหมายข่าว</a></li>
+					<li class="menuItem mainMenuItem"><a href="#" style="background-image:none; margin-right:31px">ตั้งค่าการใช้งานอื่นๆ</a></li>
+					<li class="menuItem mainMenuItem"><img src="/images/main_menu_right.png"></li>
+				</ul>
+			</div>
+		</div>
+		<div class="contentContainer">
+			<div class="mainContent">
+				<div id="leftContent">
+					<div id="leftMenuTitle">
+						<span class="label"><?=$this->navtitle?></span>
+						<span class="icon colorE9E9E9 <?=Zend_Controller_Front::getInstance()->getRequest()->getControllerName()?>Icon"></span>
+					</div>
+					<div id="leftMenu">
+						<?php echo $this->navigation()->menu(); ?>
+					</div>
+				</div>
+				<div id="centerContentContainer">
+					<div id="centerContent">
+						<?php echo $this->layout()->content; ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footerContainer">
+<!-- 			TODO:add admin footer -->
+		</div>
+ 	</div>
+</div>
+</body>
+</html>

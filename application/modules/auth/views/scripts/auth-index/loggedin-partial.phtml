@@ -1,0 +1,9 @@
+<?php 
+$user = $this->user;
+?>
+<div id="loginContainer">
+	<div>ยินดีต้อนรับ คุณ<?=$user->name?></div>
+	<div><a href="#">แก้ไขข้อมูลส่วนตัว</a></div>
+	<div><a href="<?=$this->url(array('action'=>'index','controller'=>'cart-index','module'=>'shop'),null,true)?>">ตะกร้าสินค้า (<span id="cartItemCount"><?=Zend_Controller_Action_HelperBroker::getStaticHelper('shop')->getCartItemCount();?></span>)</a></div>
+	<span class="logout"><a href="<?=$this->url(array('action'=>'logout','controller'=>'auth-index','module'=>'auth'),null,true)?>">ออกจากระบบ</a></span>
+</div>

@@ -1,0 +1,42 @@
+<?php
+$date = new Zend_Date();
+$curency = Zend_Registry::get('Zend_Currency');
+/**
+ * 
+ * @var Model_PurchaseOrder
+ */
+$order = $this->order;
+
+$fields = array(
+	array(
+		'name'	=>	'id',
+		'label'	=>	'เลขที่ใบสั่งซื้อ',
+		'value'	=>	$order->id,
+		'readonly'	=>	true,
+	),
+	array(
+		'name'	=>	'order_date',
+		'label'	=>	'วันที่สั่งซื้อ',
+		'value'	=>	$date->set($order->order_date)->get(Zend_Date::DATE_MEDIUM),
+		'readonly'	=>	true,
+	),
+	array(
+		'name'=>	'order_items',
+		'label'	=>	'รายการสินค้า',
+		'value'	=>	'<span class="grayOut">ไม่แสดง</span>',
+	),
+	array(
+		'name'=>	'total_price',
+		'label'	=>	'มูลค่ารวม',
+		'value'	=>	$curency->toCurrency($order->total_price),
+		'readonly'	=>	true,
+	),
+	array(
+		'name'=>	'status',
+		'label'	=>	'สถานะปัจจุบัน',
+		'value'	=>	$order->status->name,
+	),
+);
+
+echo $this->partial('viewlist-partial.phtml',array('fields'=>$fields,'object'=>$order));
+?>

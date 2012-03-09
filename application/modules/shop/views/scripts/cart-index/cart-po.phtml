@@ -1,0 +1,41 @@
+<?php 
+$currency = Zend_Registry::get('Zend_Currency');
+$date = new Zend_Date();
+
+$order = $this->order;
+?>
+<dl class="itemRoundLightGrayBox">
+	<dt>เลขที่ใบสั่งซื้อ</dt>
+	<dd><?=$order->id?></dd>
+	<dt>วันที่สั่งซื้อ</dt>
+	<dd><?=$date->set($this->order->order_date)->get(Zend_Date::DATETIME_MEDIUM)?></dd>
+	<dt>ชื่อผู้รับสินค้า</dt>
+	<dd><?=$order->shipping_name?></dd>
+	<dt style="height:50px">ที่อยู่จัดส่ง</dt>
+	<dd>
+	<?=$order->shippingAddress?>
+	</dd>
+</dl>
+<h2>รายการสั่งซื้อสินค้า</h2>
+	<table id="cartPO"class="orderTable">
+		<tr>
+			<th>รหัสสินค้า</th>
+			<th>รายการ</th>
+			<th class="price">ราคาต่อหน่วย (<?=$currency->getName()?>)</th>
+			<th>จำนวน</th>
+			<th class="unitTotalPrice">ราคารวม (<?=$currency->getName()?>)</th>
+		</tr>
+		<?php foreach ($order->items as $item) :?>
+		<tr class="item">
+			<td class="code"><?=$item->code?></td>
+			<td class="name"><?=$item->name?></td>
+			<td><?=$currency->toCurrency($item->unit_price,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+			<td><?=Zend_Locale_Format::toNumber($item->quantity)?></td>
+			<td><?=$currency->toCurrency($item->unit_total_price,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+		</tr>
+		<?php endforeach;?>
+		<tr class="summary">
+			<td colspan="4">ยอดรวมทั้งหมด (<?=$currency->getName()?>)</td>
+			<td><?=$currency->toCurrency($this->order->total_price,array('display'=>Zend_Currency::NO_SYMBOL))?></td>
+		</tr>
+	</table>

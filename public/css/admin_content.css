@@ -1,0 +1,9 @@
+@CHARSET "ISO-8859-1";
+
+.preview {
+	margin:.5em;
+}
+
+dd#body-element {
+	padding-left:0;
+}

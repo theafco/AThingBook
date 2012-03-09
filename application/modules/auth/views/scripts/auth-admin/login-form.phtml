@@ -1,0 +1,10 @@
+<div id="loginContainer">
+	<form id="<?=$this->element->getId()?>" action="<?=$this->element->getAction()?>" method="<?=$this->element->getMethod()?>" onsubmit="processLogin()">	
+		<dl>
+			<?=$this->element->identity?>
+			<?=$this->element->password?>
+			<dt></dt>
+			<dd><?=$this->formSubmit($this->element->login->getName(),$this->element->login->getLabel())?> <span class="responseMessage"></span></dd>
+		</dl>
+	</form>
+</div>

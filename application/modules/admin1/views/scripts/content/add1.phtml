@@ -1,0 +1,23 @@
+<?php
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	var f = dijit.byId('content1_form');
+	dojo.connect(f,'onSubmit',function(){
+		if (!f.isValid()) {
+			alert('ป้อนข้อมูลไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง');
+		}
+	});
+}
+<?$this->dojo()->onLoadCaptureEnd();?>
+<h1>กรอกข้อมูลรายละเอียดเนื้อหา</h1>
+<dl class="itemRoundLightGrayBox preview">
+	<?php $thumbUrl = $this->thumbnail()->url(array('group'=>'contents','iid'=>$this->content->id,'size'=>'medium'))?>
+	<dt>รูปประกอบ</dt>
+	<dd><img src="<?=$thumbUrl?>"></dd>
+	<dt>หมวดหมู่</dt>
+	<dd><?= $this->content->category->name?></dd>
+	<dt>หัวเรื่อง</dt><dd><?= $this->content->name?></dd>
+	<dt>คำอธิบาย</dt><dd><?= $this->content->description?></dd>
+</dl>
+<?=$this->form?>

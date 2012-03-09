@@ -1,0 +1,32 @@
+<?=$this->doctype()?>
+<html>
+	<head>
+	<?=$this->headTitle()?>
+	<?=$this->headLink()->appendStylesheet('/css/common.css')->appendStylesheet('/css/silver-theme.css')?>
+	<?php $this->headStyle()->captureStart();?>
+	#loginBox {
+		width:300px;
+		margin:250px auto;
+	}
+	#loginBox dt {
+		float:none;
+	}
+	#loginBox input {
+		width:200px;
+	}
+	#loginBox input[type=submit] {
+		width:100px;
+	}
+	<?php $this->headStyle()->captureEnd();?>
+	<?=$this->headStyle()?>
+	<?=$this->dojo()->enable()?>
+	<?=$this->headScript()->appendFile('/js/common.js')?>
+	</head>
+	<body>
+
+			<div id="loginBox">
+				<?=$this->authen(true)?>
+			</div>
+
+	</body>
+</html>

@@ -1,0 +1,65 @@
+<?php
+$date = new Zend_Date();
+$user = $this->user;
+
+$fields = array(
+			array(
+				'label'	=>	'หมายเลขสมาชิก',
+				'value'	=>	$user->id,
+				'readonly'	=>	true,
+			),
+			array(
+				'label'	=>	'วันที่สมัคร',
+				'value'	=>	$date->set($user->created_date)->get(Zend_Date::DATETIME_MEDIUM),
+				'readonly'	=>	true,
+			),
+			array(
+				'name'	=>	'name',
+				'label'	=>	'ชื่อ-สกุล',
+				'value'	=>	$user->name,
+			),
+			array(
+				'name'=>	'alias',
+				'label'	=>	'นามแฝง',
+				'value'	=>	$user->alias,
+			),
+			array(
+				'name'=>	'gender',
+				'label'	=>	'เพศ',
+				'value'	=>	$user->genderText,
+			),
+			array(
+				'name'=>	'birthday',
+				'label'	=>	'วันเกิด',
+				'value'	=>	( !empty($user->birthday) ? $date->set($user->birthday)->get(Zend_Date::DATE_LONG):null ),
+			),
+			array(
+				'name'=>	'address',
+				'label'	=>	'ที่อยุ่ปัจจุบัน',
+				'value'	=>	$user->address,
+			),
+			array(
+				'name'=>	'phone',
+				'label'	=>	'เบอร์โทรศัพท์',
+				'value'	=>	$user->phone,
+			),
+			array(
+				'name'	=>	'email',
+				'label'	=>	'อีเมล์',
+				'value'	=>	$user->email,
+			),
+			array(
+				'name'=>	'password',
+				'label'	=>	'รหัสผ่าน',
+				'value'	=>	'ข้อมูลลับ',
+				'valueClass'	=>	'grayOut',
+			),
+			array(
+				'name'	=>	'role',
+				'label'	=>	'บทบาท',
+				'value'	=>	$user->role->name,
+			),
+		);
+
+echo $this->partial('viewlist-partial.phtml',array('fields'=>$fields,'object'=>$user));
+?>

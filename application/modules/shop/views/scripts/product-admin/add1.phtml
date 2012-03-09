@@ -1,0 +1,27 @@
+<?php
+$product = $this->product;
+$this->dojo()->onLoadCaptureStart();
+?>
+function(){
+	f = dijit.byId('newProductForm2');
+	s = dijit.byId('addNewProduct2');
+	dojo.connect(f,'onSubmit',function(){
+		if (!f.isValid()) {
+			s.cancel();
+			alert('ป้อนข้อมูลไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง');
+		}
+	});
+}
+<?$this->dojo()->onLoadCaptureEnd();?>
+<h1>กรอกข้อมูลรายละเอียดเนื้อหา</h1>
+<dl class="itemRoundLightGrayBox preview">
+	<?php $thumbUrl = $this->thumbnail()->url(array('group'=>'products','id'=>$product->rowid,'size'=>'small'))?>
+	<dt>รูปประกอบ</dt>
+	<dd><img src="<?=$thumbUrl?>"></dd>
+	<dt>หมวดหมู่</dt>
+	<dd><?=$product->category->name?></dd>
+	<dt>ชื่อสินค้า</dt><dd><?=$product->name?></dd>
+	<dt>ราคาขาย</dt><dd><?=$product->price?></dd>
+	<dt>คำอธิบายโดยย่อ</dt><dd><?=$product->description?></dd>
+</dl>
+<?=$this->newProductForm2?>

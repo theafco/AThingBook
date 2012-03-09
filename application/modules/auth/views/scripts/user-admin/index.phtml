@@ -1,0 +1,17 @@
+<?php 
+$this->dojo()
+	->enable()
+	->requireModule(array(
+		'dijit.form.ValidationTextBox',
+		'dijit.form.Select',
+		'dijit.form.FilteringSelect',
+		'dijit.form.DateTextBox',
+		'dijit.form.Textarea',
+		'dijit.form.RadioButton',
+		'dojox.validate',
+		'dojox.validate.web',
+		'dojox.validate.us'
+	));
+?>
+<?=$this->partial('result-table-partial.phtml',array('fields'=>array('id'=>'รหัสผู้ใช้','name'=>'ชื่อ-สกุล'),'records'=>$this->users))?>
+<?=$this->partial('right-content.phtml',array('searchForm'=>$this->searchForm))?>

@@ -1,0 +1,15 @@
+<?php $this->dojo()->onLoadCaptureStart();?>
+function(){
+	f = dijit.byId('form');
+	s = dijit.byId('send');
+	dojo.connect(s,'_onClick', function(e){
+		if (!f.isValid()) {
+			s.cancel();
+			alert('ป้อนข้อมูลไม่ครบ กรุณาตรวจสอบอีกครั้ง');
+		}
+	});
+}
+<?php $this->dojo()->onLoadCaptureEnd();?>
+
+<h1>กรอกข้อมูลรายละเอียดสินค้า</h1>
+<?=$this->newProductForm?>
